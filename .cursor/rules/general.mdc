@@ -1,0 +1,69 @@
+---
+description: Otimização de performance com Next.js e Prismic
+globs:
+  - app/**/*.{ts,tsx}
+  - components/**/*.{ts,tsx}
+alwaysApply: true
+modified: 2025-08-27T00:05:46.946Z
+title: null
+---
+
+- Sempre utilize `next/image` para imagens vindas do Prismic, garantindo lazy-loading, otimização de formatos e suporte a diferentes breakpoints.
+- Prefira `React.Suspense` com `loading.tsx` para otimizar a experiência do usuário em páginas com fetch do Prismic.
+- Use `cache` ou `revalidate` ao buscar dados do Prismic com `@prismicio/client` para melhorar performance e evitar overfetching.
+- Evite lógica de formatação dentro dos componentes; centralize em utils/helpers para manter o código limpo e performático.
+
+---
+
+description: "Boas práticas de design com shadcn/ui e Tailwind"
+globs: ["components/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"]
+alwaysApply: true
+
+---
+
+- Utilize componentes do `shadcn/ui` como base e aplique `className` do Tailwind para customização, evitando duplicação de estilos.
+- Prefira `variants` com `cva` para lidar com estados de botões, cards e inputs, mantendo consistência no design system.
+- Evite CSS inline extenso; use utilitários do Tailwind para composições rápidas e consistentes.
+- Sempre aplique espaçamentos e tipografia consistentes, utilizando tokens (`text-xl`, `p-4`, `gap-6`) para manter harmonia no design.
+
+---
+
+description: "Acessibilidade e UX"
+globs: ["components/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"]
+alwaysApply: true
+
+---
+
+- Utilize `aria-label`, `role` e semântica HTML adequada (ex: `nav`, `header`, `main`, `footer`) para melhorar acessibilidade.
+- Sempre forneça fallback de texto alternativo (`alt`) para imagens renderizadas pelo `next/image`.
+- Prefira botões (`<Button />`) a divs clicáveis, garantindo acessibilidade nativa do teclado.
+- Use `Dialog`, `Popover` e `Tooltip` do `shadcn/ui` respeitando o foco e navegação via teclado.
+
+---
+
+description: "Organização e arquitetura de componentes"
+globs: ["components/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"]
+alwaysApply: true
+
+---
+
+- Separe componentes em:
+  - `ui/` → componentes genéricos (botões, inputs, modais).
+  - `sections/` → blocos de página que usam dados do Prismic.
+  - `layout/` → wrappers e estruturas reutilizáveis.
+- Prefira `Server Components` sempre que possível para reduzir JS enviado ao cliente.
+- Evite reexportações desnecessárias em index.ts; exporte apenas o necessário para manter árvore de dependências enxuta.
+- Nomeie os componentes de acordo com sua função (ex: `HeroSection`, `FeaturesList`, `ContactForm`).
+
+---
+
+description: "Performance de build e carregamento"
+globs: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"]
+alwaysApply: true
+
+---
+
+- Use `dynamic(() => import(...), { ssr: false })` apenas para componentes realmente dependentes do client (ex: charts, animações pesadas).
+- Prefira **importação estática** de ícones (`lucide-react`) em vez de carregar todos de uma vez.
+- Configure Tailwind com `content` bem definido para reduzir o CSS final.
+- Minimize uso de `useEffect` desnecessário; prefira Server Components ou `useMemo`/`useCallback` quando houver dependências críticas.
