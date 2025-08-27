@@ -9,7 +9,7 @@
 					{
 						"type": "heading1",
 						"content": {
-							"text": "President"
+							"text": "Golden"
 						}
 					}
 				]
@@ -26,7 +26,6 @@
 				]
 			},
 			"main_media": {
-				"__TYPE__": "ImageContent",
 				"origin": {
 					"id": "main",
 					"url": "https://images.unsplash.com/photo-1607582278043-57198ac8da43",
@@ -44,11 +43,13 @@
 					},
 					"background": "transparent"
 				},
-				"alt": "empty"
+				"alt": "empty",
+				"credits": null,
+				"__TYPE__": "ImageContent"
 			},
 			"primary_cta": {
-				"__TYPE__": "LinkContent",
 				"key": "19d617e8-61b7-4d45-b750-c028bed49d45",
+				"__TYPE__": "LinkContent",
 				"value": {
 					"__TYPE__": "ExternalLink",
 					"url": "https://slicemachine.dev",
@@ -56,8 +57,8 @@
 				}
 			},
 			"secondary_cta": {
-				"__TYPE__": "LinkContent",
 				"key": "ca0d19aa-f184-45b1-ac71-a5cc0a630feb",
+				"__TYPE__": "LinkContent",
 				"value": {
 					"__TYPE__": "ExternalLink",
 					"url": "http://twitter.com",
@@ -102,13 +103,13 @@
 									"__TYPE__": "ImageContent",
 									"origin": {
 										"id": "main",
-										"url": "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b",
-										"width": 3560,
-										"height": 5340
+										"url": "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1",
+										"width": 5616,
+										"height": 3744
 									},
-									"url": "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b",
-									"width": 3560,
-									"height": 5340,
+									"url": "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1",
+									"width": 5616,
+									"height": 3744,
 									"edit": {
 										"zoom": 1,
 										"crop": {
@@ -117,14 +118,14 @@
 										},
 										"background": "transparent"
 									},
-									"alt": "level"
+									"alt": "apple"
 								}
 							],
 							[
 								"heading",
 								{
 									"__TYPE__": "FieldContent",
-									"value": "begun",
+									"value": "electricity",
 									"type": "Text"
 								}
 							],
@@ -132,10 +133,10 @@
 								"link",
 								{
 									"__TYPE__": "LinkContent",
-									"key": "969f65a8-06b7-4dd4-9f58-c6added5eca5",
+									"key": "d76fb296-fb28-4a62-b940-30ba4799af81",
 									"value": {
 										"__TYPE__": "ExternalLink",
-										"url": "https://slicemachine.dev"
+										"url": "http://google.com"
 									}
 								}
 							]

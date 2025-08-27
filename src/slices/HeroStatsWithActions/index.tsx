@@ -17,7 +17,18 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
   const { primary } = slice;
 
   return (
-    <section className="relative overflow-hidden bg-background py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5 py-24 lg:py-32">
+      {/* Floating particles background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 h-2 w-2 rounded-full bg-primary/40 animate-pulse" />
+        <div className="absolute top-40 right-20 h-1 w-1 rounded-full bg-secondary/50 animate-ping" />
+        <div className="absolute bottom-40 left-20 h-1.5 w-1.5 rounded-full bg-accent/40 animate-bounce" />
+        <div className="absolute top-60 left-1/3 h-1 w-1 rounded-full bg-primary/30 animate-pulse" />
+        <div className="absolute bottom-20 right-1/3 h-2 w-2 rounded-full bg-secondary/40 animate-ping" />
+        <div className="absolute top-80 right-1/4 h-1.5 w-1.5 rounded-full bg-accent/30 animate-float" />
+        <div className="absolute bottom-60 left-1/4 h-1 w-1 rounded-full bg-primary/25 animate-pulse" />
+      </div>
+
       <div className="container mx-auto px-4">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           {/* Content Column */}
@@ -29,9 +40,14 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
                   field={primary.title}
                   components={{
                     heading1: ({ children }: { children: React.ReactNode }) => (
-                      <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-                        {children}
+                      <h1 className="group relative text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                          {children}
+                        </span>
                       </h1>
+                    ),
+                    strong: ({ children }: { children: React.ReactNode }) => (
+                      <strong className="font-semibold text-foreground">{children}</strong>
                     ),
                   }}
                 />
@@ -72,16 +88,27 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
               {isFilled.link(primary.primary_cta) && (
                 <PrismicNextLink field={primary.primary_cta}>
-                  <Button size="lg" className="w-full sm:w-auto">
-                    {primary.primary_cta.text || "Primary Action"}
+                  <Button
+                    size="lg"
+                    className="group relative w-full overflow-hidden bg-gradient-to-r from-primary to-secondary px-8 py-3 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl sm:w-auto"
+                  >
+                    <span className="relative z-10 font-semibold">
+                      {primary.primary_cta.text || "Primary Action"}
+                    </span>
                   </Button>
                 </PrismicNextLink>
               )}
 
               {isFilled.link(primary.secondary_cta) && (
                 <PrismicNextLink field={primary.secondary_cta}>
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    {primary.secondary_cta.text || "Secondary Action"}
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="group relative w-full overflow-hidden border-2 border-primary/30 bg-transparent px-8 py-3 transition-all duration-300 hover:scale-105 hover:border-transparent hover:bg-gradient-to-r hover:from-primary hover:to-secondary sm:w-auto"
+                  >
+                    <span className="relative z-10 font-semibold text-foreground group-hover:text-white">
+                      {primary.secondary_cta.text || "Secondary Action"}
+                    </span>
                   </Button>
                 </PrismicNextLink>
               )}
@@ -89,17 +116,24 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
 
             {/* Statistics */}
             {isFilled.group(primary.stats) && primary.stats.length > 0 && (
-              <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
                 {primary.stats.map((stat, index) => (
                   <div
                     key={index}
-                    className="text-center"
+                    className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-card/50 to-primary/10 p-6 text-center backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                    style={{
+                      animationDelay: `${index * 200}ms`,
+                      animation: 'fadeInUp 0.6s ease-out forwards'
+                    }}
                   >
-                    <div className="text-3xl font-bold text-primary lg:text-4xl">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground lg:text-base">
-                      {stat.label}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="relative z-10">
+                      <div className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent lg:text-4xl">
+                        {stat.value}
+                      </div>
+                      <div className="mt-2 text-sm font-medium text-muted-foreground lg:text-base">
+                        {stat.label}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -110,10 +144,11 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
           {/* Image Column */}
           <div className="flex items-center justify-center">
             {isFilled.image(primary.main_media) && (
-              <div className="relative w-full max-w-lg">
+              <div className="group relative w-full max-w-lg">
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 rounded-3xl blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <PrismicNextImage
                   field={primary.main_media}
-                  className="rounded-2xl shadow-2xl"
+                  className="relative z-10 rounded-2xl shadow-2xl"
                   priority
                   alt=""
                 />
@@ -121,37 +156,6 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
             )}
           </div>
         </div>
-
-        {/* Feature Cards */}
-        {isFilled.group(primary.features) && primary.features.length > 0 && (
-          <div className="mt-20">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {primary.features.map((feature, index) => (
-                <PrismicNextLink
-                  key={index}
-                  field={feature.link}
-                  className="group block transition-transform hover:scale-105"
-                >
-                  <Card className="h-full border-0 bg-muted/50 shadow-sm transition-all hover:shadow-md">
-                    <CardHeader className="pb-4">
-                      {isFilled.image(feature.icon) && (
-                        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20">
-                          <PrismicNextImage
-                            field={feature.icon}
-                            className="h-6 w-6"
-                          />
-                        </div>
-                      )}
-                      <CardTitle className="text-lg font-semibold group-hover:text-primary">
-                        {feature.heading}
-                      </CardTitle>
-                    </CardHeader>
-                  </Card>
-                </PrismicNextLink>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
