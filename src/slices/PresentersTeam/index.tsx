@@ -7,6 +7,7 @@ import type { SliceComponentProps } from "@prismicio/react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import FloatingParticles from "@/components/layout/floating-particles";
 
 // Social media icons components
 const SocialIcon = ({ platform }: { platform: string }) => {
@@ -95,14 +96,7 @@ const PresentersTeam: React.FC<PresentersTeamProps> = ({ slice }) => {
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      {/* Floating particles background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 h-2 w-2 rounded-full bg-primary/40 animate-pulse" />
-        <div className="absolute top-40 right-20 h-1 w-1 rounded-full bg-secondary/50 animate-ping" />
-        <div className="absolute bottom-40 left-20 h-1.5 w-1.5 rounded-full bg-accent/40 animate-bounce" />
-        <div className="absolute top-60 left-1/3 h-1 w-1 rounded-full bg-primary/30 animate-pulse" />
-        <div className="absolute bottom-20 right-1/3 h-2 w-2 rounded-full bg-secondary/40 animate-ping" />
-      </div>
+      <FloatingParticles />
 
       <div className="container mx-auto px-4">
         {/* Header */}

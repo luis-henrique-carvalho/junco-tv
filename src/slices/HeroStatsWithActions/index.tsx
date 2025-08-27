@@ -4,6 +4,7 @@ import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { isFilled } from "@prismicio/client";
 import type { HeroStatsWithActionsSliceDefaultPrimary } from "../../../prismicio-types";
 import { Button } from "@/components/ui/button";
+import FloatingParticles from "@/components/layout/floating-particles";
 interface HyperlinkNode {
   data: {
     url?: string;
@@ -23,15 +24,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
   return (
     <section className="relative overflow-hidden  py-16 lg:py-24">
       {/* Floating particles background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 h-2 w-2 rounded-full bg-primary/40 animate-pulse" />
-        <div className="absolute top-40 right-20 h-1 w-1 rounded-full bg-secondary/50 animate-ping" />
-        <div className="absolute bottom-40 left-20 h-1.5 w-1.5 rounded-full bg-accent/40 animate-bounce" />
-        <div className="absolute top-60 left-1/3 h-1 w-1 rounded-full bg-primary/30 animate-pulse" />
-        <div className="absolute bottom-20 right-1/3 h-2 w-2 rounded-full bg-secondary/40 animate-ping" />
-        <div className="absolute top-80 right-1/4 h-1.5 w-1.5 rounded-full bg-accent/30 animate-float" />
-        <div className="absolute bottom-60 left-1/4 h-1 w-1 rounded-full bg-primary/25 animate-pulse" />
-      </div>
+      <FloatingParticles />
 
       <div className="container mx-auto px-5">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
