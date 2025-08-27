@@ -26,7 +26,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
       {/* Floating particles background */}
       <FloatingParticles />
 
-      <div className="container mx-auto px-5">
+      <div className="container mx-auto px-5 relative z-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           {/* Content Column */}
           <div className="flex flex-col justify-center space-y-8">
@@ -132,7 +132,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
       </div>
 
       {/* Statistics */}
-      <div className="container mx-auto px-5 mt-10">
+      <div className="container mx-auto px-5 mt-10 relative z-10">
         {isFilled.group(primary.stats) && primary.stats.length > 0 && (
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 xl:grid-cols-4">
             {primary.stats.map((stat, index) => (

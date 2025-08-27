@@ -36,7 +36,7 @@ const ProgramsList: React.FC<ProgramsListProps> = ({ slice }) => {
       {/* Floating particles background */}
       <FloatingParticles />
 
-      <div className="container mx-auto px-5">
+      <div className="container mx-auto px-5 relative z-10">
         {/* Header Section */}
         <div className="text-center space-y-6 mb-16">
           {/* Title */}
