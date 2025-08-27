@@ -1,6 +1,6 @@
 import * as React from "react";
 import { PrismicRichText } from "@prismicio/react";
-import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
+import { PrismicNextLink } from "@prismicio/next";
 import { isFilled } from "@prismicio/client";
 import type { Content } from "@prismicio/client";
 import type { SliceComponentProps } from "@prismicio/react";

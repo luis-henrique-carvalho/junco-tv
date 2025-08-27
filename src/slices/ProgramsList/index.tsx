@@ -7,6 +7,14 @@ import type { SliceComponentProps } from "@prismicio/react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+// Define o tipo específico para o node do hyperlink
+interface HyperlinkNode {
+  data: {
+    url?: string;
+    target?: string;
+  };
+}
+
 /**
  * Props for `ProgramsList`.
  */
@@ -78,9 +86,9 @@ const ProgramsList: React.FC<ProgramsListProps> = ({ slice }) => {
                   em: ({ children }: { children: React.ReactNode }) => (
                     <em className="italic">{children}</em>
                   ),
-                  hyperlink: ({ children, node }: { children: React.ReactNode; node: any }) => (
+                  hyperlink: ({ children, node }: { children: React.ReactNode; node: HyperlinkNode }) => (
                     <a
-                      href={node.data.url}
+                      href={node.data.url || "#"}
                       className="text-primary underline-offset-4 hover:underline"
                       target={node.data.target || undefined}
                       rel={node.data.target === "_blank" ? "noopener noreferrer" : undefined}
@@ -187,9 +195,9 @@ const ProgramsList: React.FC<ProgramsListProps> = ({ slice }) => {
                           em: ({ children }: { children: React.ReactNode }) => (
                             <em className="italic">{children}</em>
                           ),
-                          hyperlink: ({ children, node }: { children: React.ReactNode; node: any }) => (
+                          hyperlink: ({ children, node }: { children: React.ReactNode; node: HyperlinkNode }) => (
                             <a
-                              href={node.data.url}
+                              href={node.data.url || "#"}
                               className="text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-colors duration-200"
                               target={node.data.target || undefined}
                               rel={node.data.target === "_blank" ? "noopener noreferrer" : undefined}
