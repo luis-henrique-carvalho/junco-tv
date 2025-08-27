@@ -4,8 +4,6 @@ import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { isFilled } from "@prismicio/client";
 import type { HeroStatsWithActionsSliceDefaultPrimary } from "../../../prismicio-types";
 import { Button } from "@/components/ui/button";
-
-// Define o tipo específico para o node do hyperlink
 interface HyperlinkNode {
   data: {
     url?: string;
@@ -23,15 +21,22 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
   const { primary } = slice;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5 py-20 lg:py-32">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+    <section className="relative overflow-hidden  py-16 lg:py-24">
+      {/* Floating particles background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 h-2 w-2 rounded-full bg-primary/40 animate-pulse" />
+        <div className="absolute top-40 right-20 h-1 w-1 rounded-full bg-secondary/50 animate-ping" />
+        <div className="absolute bottom-40 left-20 h-1.5 w-1.5 rounded-full bg-accent/40 animate-bounce" />
+        <div className="absolute top-60 left-1/3 h-1 w-1 rounded-full bg-primary/30 animate-pulse" />
+        <div className="absolute bottom-20 right-1/3 h-2 w-2 rounded-full bg-secondary/40 animate-ping" />
+        <div className="absolute top-80 right-1/4 h-1.5 w-1.5 rounded-full bg-accent/30 animate-float" />
+        <div className="absolute bottom-60 left-1/4 h-1 w-1 rounded-full bg-primary/25 animate-pulse" />
+      </div>
 
-      <div className="relative container mx-auto px-5">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+      <div className="container mx-auto px-5">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           {/* Content Column */}
-          <div className="space-y-8">
+          <div className="flex flex-col justify-center space-y-8">
             {/* Title */}
             {isFilled.richText(primary.title) && (
               <div className="space-y-4">
@@ -39,27 +44,14 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
                   field={primary.title}
                   components={{
                     heading1: ({ children }: { children: React.ReactNode }) => (
-                      <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
-                        <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                      <h1 className="group relative text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                           {children}
                         </span>
                       </h1>
                     ),
                     strong: ({ children }: { children: React.ReactNode }) => (
                       <strong className="font-semibold text-foreground">{children}</strong>
-                    ),
-                    em: ({ children }: { children: React.ReactNode }) => (
-                      <em className="italic">{children}</em>
-                    ),
-                    hyperlink: ({ children, node }: { children: React.ReactNode; node: HyperlinkNode }) => (
-                      <a
-                        href={node.data.url}
-                        className="text-primary underline-offset-4 hover:underline"
-                        target={node.data.target || undefined}
-                        rel={node.data.target === "_blank" ? "noopener noreferrer" : undefined}
-                      >
-                        {children}
-                      </a>
                     ),
                   }}
                 />
