@@ -69,7 +69,9 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type HomePageDocumentDataSlicesSlice = HeroStatsWithActionsSlice;
+type HomePageDocumentDataSlicesSlice =
+  | ProgramsListSlice
+  | HeroStatsWithActionsSlice;
 
 /**
  * Content for Home Page documents
@@ -317,6 +319,124 @@ export type HeroStatsWithActionsSlice = prismic.SharedSlice<
   HeroStatsWithActionsSliceVariation
 >;
 
+/**
+ * Item in *ProgramsList → Default → Primary → Program*
+ */
+export interface ProgramsListSliceDefaultPrimaryProgramItem {
+  /**
+   * Program Title field in *ProgramsList → Default → Primary → Program*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs_list.default.primary.program[].program_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  program_title: prismic.KeyTextField;
+
+  /**
+   * Program Description field in *ProgramsList → Default → Primary → Program*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs_list.default.primary.program[].program_description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  program_description: prismic.RichTextField;
+
+  /**
+   * Program Image field in *ProgramsList → Default → Primary → Program*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs_list.default.primary.program[].program_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  program_image: prismic.ImageField<never>;
+
+  /**
+   * Program episodes list field in *ProgramsList → Default → Primary → Program*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs_list.default.primary.program[].program_episodes_list
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  program_episodes_list: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Primary content in *ProgramsList → Default → Primary*
+ */
+export interface ProgramsListSliceDefaultPrimary {
+  /**
+   * title field in *ProgramsList → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs_list.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * description field in *ProgramsList → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs_list.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Program field in *ProgramsList → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs_list.default.primary.program[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  program: prismic.GroupField<
+    Simplify<ProgramsListSliceDefaultPrimaryProgramItem>
+  >;
+}
+
+/**
+ * Default variation for ProgramsList Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProgramsListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ProgramsListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ProgramsList*
+ */
+type ProgramsListSliceVariation = ProgramsListSliceDefault;
+
+/**
+ * ProgramsList Shared Slice
+ *
+ * - **API ID**: `programs_list`
+ * - **Description**: ProgramsList
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProgramsListSlice = prismic.SharedSlice<
+  "programs_list",
+  ProgramsListSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -348,6 +468,11 @@ declare module "@prismicio/client" {
       HeroStatsWithActionsSliceDefaultPrimary,
       HeroStatsWithActionsSliceVariation,
       HeroStatsWithActionsSliceDefault,
+      ProgramsListSlice,
+      ProgramsListSliceDefaultPrimaryProgramItem,
+      ProgramsListSliceDefaultPrimary,
+      ProgramsListSliceVariation,
+      ProgramsListSliceDefault,
     };
   }
 }

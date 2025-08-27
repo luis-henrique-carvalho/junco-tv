@@ -1,0 +1,79 @@
+{
+  "id": "programs_list",
+  "type": "SharedSlice",
+  "name": "ProgramsList",
+  "description": "ProgramsList",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "title",
+            "placeholder": ""
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "program": {
+          "type": "Group",
+          "config": {
+            "label": "Program",
+            "repeat": true,
+            "fields": {
+              "program_title": {
+                "type": "Text",
+                "config": {
+                  "label": "Program Title",
+                  "placeholder": ""
+                }
+              },
+              "program_description": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Program Description",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+                }
+              },
+              "program_image": {
+                "type": "Image",
+                "config": {
+                  "label": "Program Image",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "program_episodes_list": {
+                "type": "Link",
+                "config": {
+                  "label": "Program episodes list",
+                  "placeholder": "",
+                  "select": null,
+                  "allowTargetBlank": true,
+                  "allowText": true,
+                  "repeat": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "programs_list": {
+              "type": "SharedSlice"
+            },
             "hero_stats_with_actions": {
               "type": "SharedSlice"
             }

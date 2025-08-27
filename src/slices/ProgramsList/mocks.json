@@ -1,0 +1,95 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "lonely",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Laboris minim id qui voluptate anim reprehenderit id ea commodo dolor qui anim exercitation magna."
+						}
+					}
+				]
+			},
+			"program": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"program_description",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Ut aliqua magna est commodo do occaecat eu voluptate laborum id est consectetur."
+											}
+										}
+									]
+								}
+							],
+							[
+								"program_image",
+								{
+									"origin": {
+										"id": "main",
+										"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab",
+										"width": 12288,
+										"height": 16384
+									},
+									"url": "https://images.unsplash.com/photo-1587613865763-4b8b0d19e8ab",
+									"width": 12288,
+									"height": 16384,
+									"edit": {
+										"zoom": 1,
+										"crop": {
+											"x": 0,
+											"y": 0
+										},
+										"background": "transparent"
+									},
+									"alt": "comfortable",
+									"credits": null,
+									"__TYPE__": "ImageContent",
+									"thumbnails": {}
+								}
+							],
+							[
+								"program_title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "tent",
+									"type": "Text"
+								}
+							],
+							[
+								"program_episodes_list",
+								{
+									"__TYPE__": "LinkContent",
+									"key": "714c3255-6d57-4eff-9ce5-87bbeb2760b4",
+									"value": {
+										"__TYPE__": "ExternalLink",
+										"url": "http://twitter.com",
+										"text": "skin"
+									}
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]
