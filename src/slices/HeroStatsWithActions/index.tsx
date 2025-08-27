@@ -37,7 +37,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
                   field={primary.title}
                   components={{
                     heading1: ({ children }: { children: React.ReactNode }) => (
-                      <h1 className="group relative text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                      <h1 className="group relative text-4xl text-center lg:text-left font-bold tracking-tight sm:text-5xl lg:text-6xl">
                         <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                           {children}
                         </span>
