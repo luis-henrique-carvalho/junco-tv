@@ -20,7 +20,7 @@ const ProgramsList: React.FC<ProgramsListProps> = ({ slice }) => {
 
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5 py-16 lg:py-24"
+      className="relative overflow-hidden py-16 lg:py-24"
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >

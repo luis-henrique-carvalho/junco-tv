@@ -4,5 +4,6 @@ import dynamic from "next/dynamic";
 
 export const components = {
   hero_stats_with_actions: dynamic(() => import("./HeroStatsWithActions")),
+  presenters_team: dynamic(() => import("./PresentersTeam")),
   programs_list: dynamic(() => import("./ProgramsList")),
 };

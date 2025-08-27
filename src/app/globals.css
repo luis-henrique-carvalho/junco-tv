@@ -146,6 +146,18 @@
   }
 }
 
+@keyframes gradient-x {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @layer utilities {
   .gradient-primary {
     background: linear-gradient(135deg, oklch(0.7 0.25 250), oklch(0.6 0.2 280));
@@ -165,5 +177,15 @@
 
   .gradient-torch {
     background: linear-gradient(135deg, oklch(0.7 0.25 250), oklch(0.6 0.25 200), oklch(0.5 0.2 280));
+  }
+
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 3s ease infinite;
+  }
+
+  .bg-grid-pattern {
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 }

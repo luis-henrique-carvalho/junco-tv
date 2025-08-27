@@ -17,7 +17,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
   const { primary } = slice;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5 py-24 lg:py-32">
+    <section className="relative overflow-hidden  py-16 lg:py-24">
       {/* Floating particles background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 h-2 w-2 rounded-full bg-primary/40 animate-pulse" />

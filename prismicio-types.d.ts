@@ -70,6 +70,7 @@ type ContentRelationshipFieldWithData<
 }[Exclude<TCustomType[number], string>["id"]];
 
 type HomePageDocumentDataSlicesSlice =
+  | PresentersTeamSlice
   | ProgramsListSlice
   | HeroStatsWithActionsSlice;
 
@@ -320,6 +321,169 @@ export type HeroStatsWithActionsSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *PresentersTeam → Default → Primary → Presenters → Social Links*
+ */
+export interface PresentersTeamSliceDefaultPrimaryPresentersPresenterSocialLinksItem {
+  /**
+   * Social Platform field in *PresentersTeam → Default → Primary → Presenters → Social Links*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Escolha a plataforma
+   * - **API ID Path**: presenters_team.default.primary.presenters[].presenter_social_links[].social_platform
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  social_platform: prismic.SelectField<
+    | "Instagram"
+    | "Twitter"
+    | "LinkedIn"
+    | "Facebook"
+    | "YouTube"
+    | "TikTok"
+    | "Website"
+  >;
+
+  /**
+   * Social URL field in *PresentersTeam → Default → Primary → Presenters → Social Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: URL da rede social
+   * - **API ID Path**: presenters_team.default.primary.presenters[].presenter_social_links[].social_url
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  social_url: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Item in *PresentersTeam → Default → Primary → Presenters*
+ */
+export interface PresentersTeamSliceDefaultPrimaryPresentersItem {
+  /**
+   * Presenter Name  field in *PresentersTeam → Default → Primary → Presenters*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Nome do Apresentador
+   * - **API ID Path**: presenters_team.default.primary.presenters[].presenter_name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  presenter_name: prismic.KeyTextField;
+
+  /**
+   * Presenter Role field in *PresentersTeam → Default → Primary → Presenters*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Cargo/Função
+   * - **API ID Path**: presenters_team.default.primary.presenters[].presenter_role
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  presenter_role: prismic.KeyTextField;
+
+  /**
+   * Presenter Bio  field in *PresentersTeam → Default → Primary → Presenters*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Biografia do apresentador...
+   * - **API ID Path**: presenters_team.default.primary.presenters[].presenter_bio
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  presenter_bio: prismic.RichTextField;
+
+  /**
+   * Presenter Photo  field in *PresentersTeam → Default → Primary → Presenters*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: presenters_team.default.primary.presenters[].presenter_photo
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  presenter_photo: prismic.ImageField<never>;
+
+  /**
+   * Social Links field in *PresentersTeam → Default → Primary → Presenters*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: presenters_team.default.primary.presenters[].presenter_social_links[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  presenter_social_links: prismic.NestedGroupField<
+    Simplify<PresentersTeamSliceDefaultPrimaryPresentersPresenterSocialLinksItem>
+  >;
+}
+
+/**
+ * Primary content in *PresentersTeam → Default → Primary*
+ */
+export interface PresentersTeamSliceDefaultPrimary {
+  /**
+   * Title  field in *PresentersTeam → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Nossa Equipe
+   * - **API ID Path**: presenters_team.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *PresentersTeam → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Conheça os apresentadores...
+   * - **API ID Path**: presenters_team.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Presenters field in *PresentersTeam → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: presenters_team.default.primary.presenters[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  presenters: prismic.GroupField<
+    Simplify<PresentersTeamSliceDefaultPrimaryPresentersItem>
+  >;
+}
+
+/**
+ * Default variation for PresentersTeam Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PresentersTeamSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PresentersTeamSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *PresentersTeam*
+ */
+type PresentersTeamSliceVariation = PresentersTeamSliceDefault;
+
+/**
+ * PresentersTeam Shared Slice
+ *
+ * - **API ID**: `presenters_team`
+ * - **Description**: PresentersTeam
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type PresentersTeamSlice = prismic.SharedSlice<
+  "presenters_team",
+  PresentersTeamSliceVariation
+>;
+
+/**
  * Item in *ProgramsList → Default → Primary → Program*
  */
 export interface ProgramsListSliceDefaultPrimaryProgramItem {
@@ -468,6 +632,12 @@ declare module "@prismicio/client" {
       HeroStatsWithActionsSliceDefaultPrimary,
       HeroStatsWithActionsSliceVariation,
       HeroStatsWithActionsSliceDefault,
+      PresentersTeamSlice,
+      PresentersTeamSliceDefaultPrimaryPresentersPresenterSocialLinksItem,
+      PresentersTeamSliceDefaultPrimaryPresentersItem,
+      PresentersTeamSliceDefaultPrimary,
+      PresentersTeamSliceVariation,
+      PresentersTeamSliceDefault,
       ProgramsListSlice,
       ProgramsListSliceDefaultPrimaryProgramItem,
       ProgramsListSliceDefaultPrimary,

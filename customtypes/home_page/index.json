@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "presenters_team": {
+              "type": "SharedSlice"
+            },
             "programs_list": {
               "type": "SharedSlice"
             },
