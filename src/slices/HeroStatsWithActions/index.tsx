@@ -29,7 +29,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
         <div className="absolute bottom-60 left-1/4 h-1 w-1 rounded-full bg-primary/25 animate-pulse" />
       </div>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-5">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           {/* Content Column */}
           <div className="flex flex-col justify-center space-y-8">
@@ -113,32 +113,6 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
                 </PrismicNextLink>
               )}
             </div>
-
-            {/* Statistics */}
-            {isFilled.group(primary.stats) && primary.stats.length > 0 && (
-              <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-                {primary.stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-card/50 to-primary/10 p-6 text-center backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
-                    style={{
-                      animationDelay: `${index * 200}ms`,
-                      animation: 'fadeInUp 0.6s ease-out forwards'
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    <div className="relative z-10">
-                      <div className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent lg:text-4xl">
-                        {stat.value}
-                      </div>
-                      <div className="mt-2 text-sm font-medium text-muted-foreground lg:text-base">
-                        {stat.label}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Image Column */}
@@ -156,6 +130,36 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
             )}
           </div>
         </div>
+
+
+      </div>
+
+      {/* Statistics */}
+      <div className="container mx-auto px-5 mt-10">
+        {isFilled.group(primary.stats) && primary.stats.length > 0 && (
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {primary.stats.map((stat, index) => (
+              <div
+                key={index}
+                className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-card/50 to-primary/10 p-6 text-center backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                style={{
+                  animationDelay: `${index * 200}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards'
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="relative z-10">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent lg:text-4xl">
+                    {stat.value}
+                  </div>
+                  <div className="mt-2 text-sm font-medium text-muted-foreground lg:text-base">
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
