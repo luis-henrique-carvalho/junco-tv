@@ -63,7 +63,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
               {isFilled.keyText(primary.title) && (
                 <div className="relative group">
                   <div className="relative">
-                    <h1 className="text-center lg:text-left text-8xl sm:text-8xl lg:text-8xl xl:text-9xl 2xl:text-9xl font-black tracking-tighter leading-none">
+                    <h1 className="text-center lg:text-left text-7xl sm:text-8xl lg:text-8xl xl:text-8xl 2xl:text-9xl font-black tracking-tighter leading-none">
                       {/* Main gradient text with multiple effects */}
                       <span className="relative inline-block">
                         <span className="relative z-10 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent bg-size-200 animate-gradient filter drop-shadow-2xl">
