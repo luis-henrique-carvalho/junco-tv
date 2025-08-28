@@ -42,18 +42,22 @@
           "type": "Link",
           "config": {
             "label": "Primary Call to Action",
+            "placeholder": "",
             "allowText": true,
             "repeat": false,
-            "select": null
+            "select": null,
+            "allowTargetBlank": true
           }
         },
         "secondary_cta": {
           "type": "Link",
           "config": {
             "label": "Secondary Call to Action",
+            "placeholder": "",
             "allowText": true,
             "repeat": false,
-            "select": null
+            "select": null,
+            "allowTargetBlank": true
           }
         },
         "stats": {
