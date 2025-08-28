@@ -67,6 +67,11 @@ export function NavigationMenuDemo() {
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                                <Link href="/junco-news">Junco News</Link>
+                            </NavigationMenuLink>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                 <Link href="/about">Sobre nós</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
@@ -165,6 +170,10 @@ export function NavigationMenuDemo() {
                                         ))}
                                     </div>
                                 </div>
+
+                                <MobileMenuItem href="/junco-news" onClick={toggleMobileMenu}>
+                                    Junco News
+                                </MobileMenuItem>
 
                                 <MobileMenuItem href="/about" onClick={toggleMobileMenu}>
                                     Sobre nós
