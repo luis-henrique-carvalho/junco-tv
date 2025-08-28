@@ -112,7 +112,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
             )}
 
             {/* CTA Buttons */}
-            <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:gap-6 justify-center lg:justify-start">
               {isFilled.link(primary.primary_cta) && (
                 <PrismicNextLink field={primary.primary_cta}>
                   <Button

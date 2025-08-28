@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
+import { NavigationMenuDemo } from "@/components/layout/navgate-menu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-background via-background/95 to-primary/5`}
       >
+        <NavigationMenuDemo />
         {children}
       </body>
 
