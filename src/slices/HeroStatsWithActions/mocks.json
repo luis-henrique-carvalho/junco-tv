@@ -3,17 +3,6 @@
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
 		"primary": {
-			"title": {
-				"__TYPE__": "StructuredTextContent",
-				"value": [
-					{
-						"type": "heading1",
-						"content": {
-							"text": "Golden"
-						}
-					}
-				]
-			},
 			"description": {
 				"__TYPE__": "StructuredTextContent",
 				"value": [
@@ -100,7 +89,6 @@
 							[
 								"icon",
 								{
-									"__TYPE__": "ImageContent",
 									"origin": {
 										"id": "main",
 										"url": "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1",
@@ -118,7 +106,9 @@
 										},
 										"background": "transparent"
 									},
-									"alt": "apple"
+									"alt": "apple",
+									"credits": null,
+									"__TYPE__": "ImageContent"
 								}
 							],
 							[
@@ -132,8 +122,8 @@
 							[
 								"link",
 								{
-									"__TYPE__": "LinkContent",
 									"key": "d76fb296-fb28-4a62-b940-30ba4799af81",
+									"__TYPE__": "LinkContent",
 									"value": {
 										"__TYPE__": "ExternalLink",
 										"url": "http://google.com"
@@ -143,6 +133,16 @@
 						]
 					}
 				]
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "ahead",
+				"type": "Text"
+			},
+			"sub_title": {
+				"__TYPE__": "FieldContent",
+				"value": "trunk",
+				"type": "Text"
 			}
 		},
 		"items": []

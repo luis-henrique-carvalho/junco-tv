@@ -12,12 +12,17 @@
       "docURL": "...",
       "primary": {
         "title": {
-          "type": "StructuredText",
+          "type": "Text",
           "config": {
             "label": "Title",
-            "placeholder": "",
-            "allowTargetBlank": true,
-            "single": "heading1,strong"
+            "placeholder": ""
+          }
+        },
+        "sub_title": {
+          "type": "Text",
+          "config": {
+            "label": "Sub Title",
+            "placeholder": ""
           }
         },
         "description": {

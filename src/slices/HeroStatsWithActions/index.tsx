@@ -30,26 +30,56 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           {/* Content Column */}
           <div className="flex flex-col justify-center space-y-8">
-            {/* Title */}
-            {isFilled.richText(primary.title) && (
-              <div className="space-y-4">
-                <PrismicRichText
-                  field={primary.title}
-                  components={{
-                    heading1: ({ children }: { children: React.ReactNode }) => (
-                      <h1 className="group relative text-4xl text-center lg:text-left font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                        <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                          {children}
+            {/* Hero Header Section */}
+            <div className="relative space-y-8">
+              {/* Subtitle Badge */}
+              {isFilled.keyText(primary.sub_title) && (
+                <div className="flex justify-center lg:justify-start">
+                  <div className="group relative">
+                    {/* Animated glow background */}
+                    <div className="absolute -inset-2 bg-gradient-to-r from-primary/40 via-secondary/40 to-accent/40 rounded-2xl blur-lg opacity-0 group-hover:opacity-70 transition-all duration-700 animate-pulse"></div>
+
+                    {/* Main badge */}
+                    <div className="relative flex items-center space-x-3 bg-gradient-to-r from-card/90 to-card/70 backdrop-blur-xl rounded-xl px-6 py-3 border border-primary/30 shadow-xl animate-float-subtle">
+                      {/* Shimmer overlay effect */}
+                      <div className="absolute inset-0 rounded-xl animate-shimmer opacity-30"></div>
+
+                      {/* Animated indicator dot */}
+                      <div className="relative z-10">
+                        <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-primary to-secondary animate-pulse"></div>
+                        <div className="absolute inset-0 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-primary to-secondary blur-sm animate-ping"></div>
+                      </div>
+
+                      {/* Badge text */}
+                      <span className="relative z-10 text-sm font-semibold text-foreground/90 tracking-wider uppercase">
+                        {primary.sub_title}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Main Title */}
+              {isFilled.keyText(primary.title) && (
+                <div className="relative group">
+                  <div className="relative">
+                    <h1 className="text-center lg:text-left text-8xl sm:text-8xl lg:text-8xl xl:text-9xl 2xl:text-9xl font-black tracking-tighter leading-none">
+                      {/* Main gradient text with multiple effects */}
+                      <span className="relative inline-block">
+                        <span className="relative z-10 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent bg-size-200 animate-gradient filter drop-shadow-2xl">
+                          {primary.title}
                         </span>
-                      </h1>
-                    ),
-                    strong: ({ children }: { children: React.ReactNode }) => (
-                      <strong className="font-semibold text-foreground">{children}</strong>
-                    ),
-                  }}
-                />
-              </div>
-            )}
+                      </span>
+                    </h1>
+
+                    {/* Decorative underline effect */}
+                    <div className="mt-4 justify-center lg:justify-start hidden lg:block">
+                      <div className="h-1 w-24 bg-gradient-to-r from-primary via-primary rounded-full opacity-60 animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Description */}
             {isFilled.richText(primary.description) && (
@@ -58,7 +88,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
                   field={primary.description}
                   components={{
                     paragraph: ({ children }: { children: React.ReactNode }) => (
-                      <p className="text-lg leading-relaxed">{children}</p>
+                      <p className="text-lg text-center lg:text-left leading-relaxed">{children}</p>
                     ),
                     strong: ({ children }: { children: React.ReactNode }) => (
                       <strong className="font-semibold text-foreground">{children}</strong>

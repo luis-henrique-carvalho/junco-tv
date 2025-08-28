@@ -206,12 +206,22 @@ export interface HeroStatsWithActionsSliceDefaultPrimary {
   /**
    * Title field in *HeroStatsWithActions → Default → Primary*
    *
-   * - **Field Type**: Rich Text
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: hero_stats_with_actions.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
-  title: prismic.RichTextField;
+  title: prismic.KeyTextField;
+
+  /**
+   * Sub Title field in *HeroStatsWithActions → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_stats_with_actions.default.primary.sub_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  sub_title: prismic.KeyTextField;
 
   /**
    * Description field in *HeroStatsWithActions → Default → Primary*
