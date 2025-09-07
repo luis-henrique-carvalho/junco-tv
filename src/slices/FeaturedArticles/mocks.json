@@ -1,0 +1,19 @@
+[
+    {
+        "__TYPE__": "SharedSliceContent",
+        "variation": "default",
+        "primary": {
+            "section_title": "Notícias em Destaque",
+            "section_description": [
+                {
+                    "type": "paragraph",
+                    "text": "As principais notícias selecionadas pela nossa redação para você ficar por dentro dos acontecimentos mais importantes."
+                }
+            ],
+            "max_articles": 6,
+            "show_category_filter": false,
+            "layout_style": "Grid"
+        },
+        "items": []
+    }
+]

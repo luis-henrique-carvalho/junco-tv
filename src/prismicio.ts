@@ -17,8 +17,11 @@ export const repositoryName =
  *
  * {@link https://prismic.io/docs/route-resolver#route-resolver}
  */
-// TODO: Update the routes array to match your project's route structure.
-const routes: Route[] = [{ type: "home_page", path: "/" }];
+// Routes array configured for the project's structure.
+const routes: Route[] = [
+  { type: "home_page", path: "/" },
+  { type: "news_article", path: "/junco-news/:uid" },
+];
 
 /**
  * Creates a Prismic client for the project's repository. The client is used to

@@ -137,7 +137,471 @@ export type HomePageDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomePageDocument;
+type JuncoNewsDocumentDataSlicesSlice = never;
+
+/**
+ * Content for junco_news documents
+ */
+interface JuncoNewsDocumentData {
+  /**
+   * Slice Zone field in *junco_news*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: junco_news.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<JuncoNewsDocumentDataSlicesSlice> /**
+   * Meta Title field in *junco_news*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: junco_news.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *junco_news*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: junco_news.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *junco_news*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: junco_news.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * junco_news document from Prismic
+ *
+ * - **API ID**: `junco_news`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type JuncoNewsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<JuncoNewsDocumentData>,
+    "junco_news",
+    Lang
+  >;
+
+/**
+ * Content for News Article documents
+ */
+interface NewsArticleDocumentData {
+  /**
+   * Título do Artigo field in *News Article*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Digite o título principal...
+   * - **API ID Path**: news_article.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Subtítulo field in *News Article*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Breve descrição ou subtítulo...
+   * - **API ID Path**: news_article.subtitle
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  subtitle: prismic.RichTextField;
+
+  /**
+   * Imagem Destacada field in *News Article*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_article.featured_image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  featured_image: prismic.ImageField<"mobile" | "tablet">;
+
+  /**
+   * Resumo/Excerpt field in *News Article*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Breve resumo do artigo para SEO e cards...
+   * - **API ID Path**: news_article.excerpt
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  excerpt: prismic.RichTextField;
+
+  /**
+   * Autor field in *News Article*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Nome do autor
+   * - **API ID Path**: news_article.author
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  author: prismic.KeyTextField;
+
+  /**
+   * Data de Publicação field in *News Article*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_article.publication_date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/date
+   */
+  publication_date: prismic.DateField;
+
+  /**
+   * Categoria field in *News Article*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Selecione uma categoria
+   * - **API ID Path**: news_article.category
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  category: prismic.SelectField<
+    | "Tecnologia"
+    | "Esportes"
+    | "Política"
+    | "Economia"
+    | "Cultura"
+    | "Internacional"
+    | "Saúde"
+    | "Educação"
+  >;
+
+  /**
+   * Tags field in *News Article*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: tag1, tag2, tag3
+   * - **API ID Path**: news_article.tags
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  tags: prismic.KeyTextField;
+
+  /**
+   * Artigo em Destaque field in *News Article*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: news_article.featured
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  featured: prismic.BooleanField;
+
+  /**
+   * Tempo de Leitura (minutos) field in *News Article*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: 5
+   * - **API ID Path**: news_article.reading_time
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  reading_time: prismic.NumberField /**
+   * Meta Título field in *News Article*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Título para SEO (máx. 60 caracteres)
+   * - **API ID Path**: news_article.meta_title
+   * - **Tab**: SEO
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Descrição field in *News Article*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Descrição para SEO (máx. 160 caracteres)
+   * - **API ID Path**: news_article.meta_description
+   * - **Tab**: SEO
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Open Graph Image field in *News Article*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_article.og_image
+   * - **Tab**: SEO
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  og_image: prismic.ImageField<never> /**
+   * Conteudo field in *News Article*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_article.body
+   * - **Tab**: Content
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */;
+  body: prismic.RichTextField;
+}
+
+/**
+ * News Article document from Prismic
+ *
+ * - **API ID**: `news_article`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type NewsArticleDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<NewsArticleDocumentData>,
+    "news_article",
+    Lang
+  >;
+
+export type AllDocumentTypes =
+  | HomePageDocument
+  | JuncoNewsDocument
+  | NewsArticleDocument;
+
+/**
+ * Item in *ArticlesGrid → Default → Primary → Available Categories*
+ */
+export interface ArticlesGridSliceDefaultPrimaryFilterCategoriesItem {
+  /**
+   * Category Name field in *ArticlesGrid → Default → Primary → Available Categories*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Tecnologia
+   * - **API ID Path**: articles_grid.default.primary.filter_categories[].category_name
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  category_name: prismic.KeyTextField;
+
+  /**
+   * Category Slug field in *ArticlesGrid → Default → Primary → Available Categories*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: tecnologia
+   * - **API ID Path**: articles_grid.default.primary.filter_categories[].category_slug
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  category_slug: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *ArticlesGrid → Default → Primary*
+ */
+export interface ArticlesGridSliceDefaultPrimary {
+  /**
+   * Section Title field in *ArticlesGrid → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Todas as Notícias
+   * - **API ID Path**: articles_grid.default.primary.section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_title: prismic.KeyTextField;
+
+  /**
+   * Articles per Page field in *ArticlesGrid → Default → Primary*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: 12
+   * - **API ID Path**: articles_grid.default.primary.articles_per_page
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  articles_per_page: prismic.NumberField;
+
+  /**
+   * Show Filters field in *ArticlesGrid → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: articles_grid.default.primary.show_filters
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  show_filters: prismic.BooleanField;
+
+  /**
+   * Show Search field in *ArticlesGrid → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: articles_grid.default.primary.show_search
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  show_search: prismic.BooleanField;
+
+  /**
+   * Default Sort Order field in *ArticlesGrid → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Escolha a ordenação
+   * - **API ID Path**: articles_grid.default.primary.default_sort
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  default_sort: prismic.SelectField<
+    | "publication_date_desc"
+    | "publication_date_asc"
+    | "title_asc"
+    | "title_desc"
+  >;
+
+  /**
+   * Available Categories field in *ArticlesGrid → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: articles_grid.default.primary.filter_categories[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  filter_categories: prismic.GroupField<
+    Simplify<ArticlesGridSliceDefaultPrimaryFilterCategoriesItem>
+  >;
+}
+
+/**
+ * Default variation for ArticlesGrid Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Articles grid with filters, search, and pagination
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ArticlesGridSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ArticlesGridSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ArticlesGrid*
+ */
+type ArticlesGridSliceVariation = ArticlesGridSliceDefault;
+
+/**
+ * ArticlesGrid Shared Slice
+ *
+ * - **API ID**: `articles_grid`
+ * - **Description**: Articles grid with filtering and pagination
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ArticlesGridSlice = prismic.SharedSlice<
+  "articles_grid",
+  ArticlesGridSliceVariation
+>;
+
+/**
+ * Primary content in *FeaturedArticles → Default → Primary*
+ */
+export interface FeaturedArticlesSliceDefaultPrimary {
+  /**
+   * Section Title field in *FeaturedArticles → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Notícias em Destaque
+   * - **API ID Path**: featured_articles.default.primary.section_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  section_title: prismic.KeyTextField;
+
+  /**
+   * Section Description field in *FeaturedArticles → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: As principais notícias selecionadas pela redação...
+   * - **API ID Path**: featured_articles.default.primary.section_description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  section_description: prismic.RichTextField;
+
+  /**
+   * Max Articles to Show field in *FeaturedArticles → Default → Primary*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: 6
+   * - **API ID Path**: featured_articles.default.primary.max_articles
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  max_articles: prismic.NumberField;
+
+  /**
+   * Show Category Filter field in *FeaturedArticles → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: featured_articles.default.primary.show_category_filter
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  show_category_filter: prismic.BooleanField;
+
+  /**
+   * Layout Style field in *FeaturedArticles → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Escolha o estilo
+   * - **API ID Path**: featured_articles.default.primary.layout_style
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  layout_style: prismic.SelectField<"Grid" | "Carousel" | "List">;
+}
+
+/**
+ * Default variation for FeaturedArticles Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Featured articles grid with customizable layout
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FeaturedArticlesSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FeaturedArticlesSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *FeaturedArticles*
+ */
+type FeaturedArticlesSliceVariation = FeaturedArticlesSliceDefault;
+
+/**
+ * FeaturedArticles Shared Slice
+ *
+ * - **API ID**: `featured_articles`
+ * - **Description**: Section displaying featured news articles
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type FeaturedArticlesSlice = prismic.SharedSlice<
+  "featured_articles",
+  FeaturedArticlesSliceVariation
+>;
 
 /**
  * Item in *HeroStatsWithActions → Default → Primary → Statistics*
@@ -328,6 +792,92 @@ type HeroStatsWithActionsSliceVariation = HeroStatsWithActionsSliceDefault;
 export type HeroStatsWithActionsSlice = prismic.SharedSlice<
   "hero_stats_with_actions",
   HeroStatsWithActionsSliceVariation
+>;
+
+/**
+ * Primary content in *NewsHero → Default → Primary*
+ */
+export interface NewsHeroSliceDefaultPrimary {
+  /**
+   * Hero Title field in *NewsHero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Últimas Notícias
+   * - **API ID Path**: news_hero.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Hero Subtitle field in *NewsHero → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Fique por dentro dos acontecimentos
+   * - **API ID Path**: news_hero.default.primary.subtitle
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  subtitle: prismic.KeyTextField;
+
+  /**
+   * Hero Description field in *NewsHero → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descrição do conteúdo de notícias...
+   * - **API ID Path**: news_hero.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Background Image field in *NewsHero → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_hero.default.primary.background_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  background_image: prismic.ImageField<"mobile">;
+
+  /**
+   * Show Search Bar field in *NewsHero → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: news_hero.default.primary.show_search
+   * - **Documentation**: https://prismic.io/docs/fields/boolean
+   */
+  show_search: prismic.BooleanField;
+}
+
+/**
+ * Default variation for NewsHero Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: News hero section with title, description, and featured image
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type NewsHeroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<NewsHeroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *NewsHero*
+ */
+type NewsHeroSliceVariation = NewsHeroSliceDefault;
+
+/**
+ * NewsHero Shared Slice
+ *
+ * - **API ID**: `news_hero`
+ * - **Description**: Hero section for news page with customizable content
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type NewsHeroSlice = prismic.SharedSlice<
+  "news_hero",
+  NewsHeroSliceVariation
 >;
 
 /**
@@ -635,13 +1185,31 @@ declare module "@prismicio/client" {
       HomePageDocument,
       HomePageDocumentData,
       HomePageDocumentDataSlicesSlice,
+      JuncoNewsDocument,
+      JuncoNewsDocumentData,
+      JuncoNewsDocumentDataSlicesSlice,
+      NewsArticleDocument,
+      NewsArticleDocumentData,
       AllDocumentTypes,
+      ArticlesGridSlice,
+      ArticlesGridSliceDefaultPrimaryFilterCategoriesItem,
+      ArticlesGridSliceDefaultPrimary,
+      ArticlesGridSliceVariation,
+      ArticlesGridSliceDefault,
+      FeaturedArticlesSlice,
+      FeaturedArticlesSliceDefaultPrimary,
+      FeaturedArticlesSliceVariation,
+      FeaturedArticlesSliceDefault,
       HeroStatsWithActionsSlice,
       HeroStatsWithActionsSliceDefaultPrimaryStatsItem,
       HeroStatsWithActionsSliceDefaultPrimaryFeaturesItem,
       HeroStatsWithActionsSliceDefaultPrimary,
       HeroStatsWithActionsSliceVariation,
       HeroStatsWithActionsSliceDefault,
+      NewsHeroSlice,
+      NewsHeroSliceDefaultPrimary,
+      NewsHeroSliceVariation,
+      NewsHeroSliceDefault,
       PresentersTeamSlice,
       PresentersTeamSliceDefaultPrimaryPresentersPresenterSocialLinksItem,
       PresentersTeamSliceDefaultPrimaryPresentersItem,
