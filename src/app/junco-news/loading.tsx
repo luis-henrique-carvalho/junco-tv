@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import FloatingParticles from "@/components/layout/floating-particles";
 
 /**
  * Loading component for the news index page
@@ -10,10 +9,8 @@ export default function Loading() {
     return (
         <div className="min-h-screen">
             {/* Hero Section Skeleton */}
-            <section className="relative overflow-hidden py-16 lg:py-20 min-h-[60vh]">
-                <FloatingParticles />
-
-                <div className="container mx-auto px-4 relative z-10">
+            <section className="relative overflow-hidden py-8 lg:py-12 min-h-[40vh]">
+                <div className="container mx-auto px-4">
                     <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20 items-center">
                         {/* Content Column */}
                         <div className="flex flex-col justify-center space-y-8">
@@ -92,10 +89,10 @@ export default function Loading() {
             </section>
 
             {/* Featured Articles Section Skeleton */}
-            <section className="py-16 lg:py-20">
+            <section className="py-8 lg:py-12">
                 <div className="container mx-auto px-4">
                     {/* Header Skeleton */}
-                    <div className="text-center space-y-6 mb-16">
+                    <div className="text-center space-y-6 mb-12">
                         <Skeleton className="h-12 w-64 mx-auto" />
                         <div className="space-y-3 max-w-3xl mx-auto">
                             <Skeleton className="h-6 w-full" />
@@ -153,7 +150,7 @@ export default function Loading() {
             </section>
 
             {/* Articles Grid Section Skeleton */}
-            <section className="py-16 lg:py-20">
+            <section className="py-8 lg:py-12">
                 <div className="container mx-auto px-4">
                     {/* Header Skeleton */}
                     <div className="text-center space-y-6 mb-12">

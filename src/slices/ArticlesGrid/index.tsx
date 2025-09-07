@@ -124,14 +124,14 @@ const mockArticles = [
 
 const getCategoryColor = (category: string) => {
     const colors = {
-        "Tecnologia": "bg-blue-500/10 text-blue-600 border-blue-500/20",
-        "Economia": "bg-green-500/10 text-green-600 border-green-500/20",
-        "Esportes": "bg-orange-500/10 text-orange-600 border-orange-500/20",
-        "Política": "bg-purple-500/10 text-purple-600 border-purple-500/20",
-        "Cultura": "bg-pink-500/10 text-pink-600 border-pink-500/20",
-        "Saúde": "bg-red-500/10 text-red-600 border-red-500/20",
+        "Tecnologia": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Economia": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Esportes": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Política": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Cultura": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Saúde": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
     };
-    return colors[category as keyof typeof colors] || "bg-muted text-muted-foreground";
+    return colors[category as keyof typeof colors] || "bg-muted text-muted-foreground border-border";
 };
 
 const ArticleCard = ({ article, index, viewMode }: { article: any; index: number; viewMode: 'grid' | 'list' }) => {
@@ -201,19 +201,14 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
 
     return (
         <Card
-            className="group bg-gradient-to-br from-card/90 via-card/70 to-primary/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/10 border border-primary/20 hover:border-primary/40 h-full flex flex-col overflow-hidden"
-            style={{
-                animationDelay: `${index * 100}ms`,
-                animation: 'fadeInUp 0.6s ease-out forwards'
-            }}
+            className="group bg-card border transition-colors duration-200 hover:shadow-md h-full flex flex-col overflow-hidden"
         >
             <div className="relative overflow-hidden">
                 <img
                     src={article.featured_image.url}
                     alt={article.featured_image.alt}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-48 object-cover transition-transform duration-200"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 <div className="absolute top-4 left-4">
                     <Badge className={`${getCategoryColor(article.category)} border`}>
@@ -223,7 +218,7 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
             </div>
 
             <CardContent className="flex-1 p-6 flex flex-col">
-                <CardTitle className="text-lg text-foreground leading-tight mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                <CardTitle className="text-lg text-foreground leading-tight mb-3 transition-colors line-clamp-2">
                     {article.title}
                 </CardTitle>
 
@@ -252,8 +247,8 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                     </div>
 
                     <Button
-                        variant="ghost"
-                        className="w-full justify-between group-hover:bg-primary/10 group-hover:text-primary transition-colors"
+                        variant="outline"
+                        className="w-full"
                         asChild
                     >
                         <a href={`/junco-news/${article.slug}`}>
@@ -355,7 +350,7 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
 
     return (
         <section
-            className="py-16 lg:py-20"
+            className="py-8 lg:py-12"
             data-slice-type={slice.slice_type}
             data-slice-variation={slice.variation}
         >
@@ -363,10 +358,8 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
                 {/* Header */}
                 <div className="text-center space-y-6 mb-12">
                     {isFilled.keyText(primary.section_title) && (
-                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-                            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                                {primary.section_title}
-                            </span>
+                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
+                            {primary.section_title}
                         </h2>
                     )}
                 </div>
@@ -394,14 +387,14 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
                         {/* View Mode Toggle */}
                         <div className="flex items-center space-x-2">
                             <Button
-                                variant={viewMode === 'grid' ? 'default' : 'outline'}
+                                variant={viewMode === 'grid' ? 'secondary' : 'outline'}
                                 size="sm"
                                 onClick={() => setViewMode('grid')}
                             >
                                 <Grid className="w-4 h-4" />
                             </Button>
                             <Button
-                                variant={viewMode === 'list' ? 'default' : 'outline'}
+                                variant={viewMode === 'list' ? 'secondary' : 'outline'}
                                 size="sm"
                                 onClick={() => setViewMode('list')}
                             >

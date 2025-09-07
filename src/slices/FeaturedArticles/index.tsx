@@ -97,14 +97,14 @@ const mockArticles = [
 
 const getCategoryColor = (category: string) => {
     const colors = {
-        "Tecnologia": "bg-blue-500/10 text-blue-600 border-blue-500/20",
-        "Economia": "bg-green-500/10 text-green-600 border-green-500/20",
-        "Esportes": "bg-orange-500/10 text-orange-600 border-orange-500/20",
-        "Política": "bg-purple-500/10 text-purple-600 border-purple-500/20",
-        "Cultura": "bg-pink-500/10 text-pink-600 border-pink-500/20",
-        "Saúde": "bg-red-500/10 text-red-600 border-red-500/20",
+        "Tecnologia": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Economia": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Esportes": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Política": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Cultura": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
+        "Saúde": "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700",
     };
-    return colors[category as keyof typeof colors] || "bg-muted text-muted-foreground";
+    return colors[category as keyof typeof colors] || "bg-muted text-muted-foreground border-border";
 };
 
 const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: number; isGrid?: boolean }) => {
@@ -112,23 +112,18 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
 
     return (
         <Card
-            className={`group bg-gradient-to-br from-card/90 via-card/70 to-primary/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 border border-primary/20 hover:border-primary/40 h-full flex flex-col overflow-hidden
+            className={`group bg-card border transition-colors duration-200 hover:shadow-md h-full flex flex-col overflow-hidden
         ${isFeatured ? 'lg:flex-row' : ''}
       `}
-            style={{
-                animationDelay: `${index * 200}ms`,
-                animation: 'fadeInUp 0.8s ease-out forwards'
-            }}
         >
             <div className={`relative overflow-hidden ${isFeatured ? 'lg:w-1/2' : ''}`}>
                 <img
                     src={article.featured_image.url}
                     alt={article.featured_image.alt}
-                    className={`w-full object-cover transition-transform duration-500 group-hover:scale-105
-            ${isFeatured ? 'h-64 lg:h-full lg:min-h-[400px]' : 'h-48'}
+                    className={`w-full object-cover transition-transform duration-200
+            ${isFeatured ? 'h-64 lg:h-full lg:min-h-[300px]' : 'h-48'}
           `}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
@@ -140,8 +135,7 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
                 {/* Featured Badge */}
                 {article.featured && (
                     <div className="absolute top-4 right-4">
-                        <Badge className="bg-primary/90 text-primary-foreground border-primary">
-                            <TrendingUp className="w-3 h-3 mr-1" />
+                        <Badge variant="secondary" className="bg-background/90 text-foreground border">
                             Destaque
                         </Badge>
                     </div>
@@ -150,8 +144,8 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
 
             <CardContent className={`flex-1 p-6 flex flex-col ${isFeatured ? 'lg:w-1/2' : ''}`}>
                 {/* Title */}
-                <CardTitle className={`text-foreground leading-tight mb-3 group-hover:text-primary transition-colors
-          ${isFeatured ? 'text-xl lg:text-3xl' : 'text-lg'}
+                <CardTitle className={`text-foreground leading-tight mb-3 transition-colors
+          ${isFeatured ? 'text-xl lg:text-2xl' : 'text-lg'}
         `}>
                     {article.title}
                 </CardTitle>
@@ -186,13 +180,13 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
 
                     {/* Read More Button */}
                     <Button
-                        variant="ghost"
-                        className="w-full justify-between group-hover:bg-primary/10 group-hover:text-primary transition-colors"
+                        variant="outline"
+                        className="w-full justify-between"
                         asChild
                     >
                         <a href={`/junco-news/${article.slug}`}>
                             Ler Artigo Completo
-                            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                            <ArrowRight className="w-4 h-4" />
                         </a>
                     </Button>
                 </div>
