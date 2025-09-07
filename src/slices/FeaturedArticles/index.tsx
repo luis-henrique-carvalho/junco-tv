@@ -26,7 +26,7 @@ const mockArticles = [
         publication_date: "2024-01-15",
         reading_time: 5,
         featured_image: {
-            url: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600",
+            url: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=600",
             alt: "Tecnologia futurista"
         },
         featured: true,
@@ -113,19 +113,19 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
     return (
         <Card
             className={`group bg-gradient-to-br from-card/90 via-card/70 to-primary/5 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10 border border-primary/20 hover:border-primary/40 h-full flex flex-col overflow-hidden
-        ${isFeatured && isGrid ? 'lg:col-span-2 lg:row-span-2' : ''}
+        ${isFeatured ? 'lg:flex-row' : ''}
       `}
             style={{
                 animationDelay: `${index * 200}ms`,
                 animation: 'fadeInUp 0.8s ease-out forwards'
             }}
         >
-            <div className="relative overflow-hidden">
+            <div className={`relative overflow-hidden ${isFeatured ? 'lg:w-1/2' : ''}`}>
                 <img
                     src={article.featured_image.url}
                     alt={article.featured_image.alt}
                     className={`w-full object-cover transition-transform duration-500 group-hover:scale-105
-            ${isFeatured && isGrid ? 'h-64 lg:h-80' : 'h-48'}
+            ${isFeatured ? 'h-64 lg:h-full lg:min-h-[400px]' : 'h-48'}
           `}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -148,17 +148,17 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
                 )}
             </div>
 
-            <CardContent className="flex-1 p-6 flex flex-col">
+            <CardContent className={`flex-1 p-6 flex flex-col ${isFeatured ? 'lg:w-1/2' : ''}`}>
                 {/* Title */}
                 <CardTitle className={`text-foreground leading-tight mb-3 group-hover:text-primary transition-colors
-          ${isFeatured && isGrid ? 'text-xl lg:text-2xl' : 'text-lg'}
+          ${isFeatured ? 'text-xl lg:text-3xl' : 'text-lg'}
         `}>
                     {article.title}
                 </CardTitle>
 
                 {/* Excerpt */}
                 <p className={`text-muted-foreground leading-relaxed mb-4 flex-1
-          ${isFeatured && isGrid ? 'text-base' : 'text-sm line-clamp-3'}
+          ${isFeatured ? 'text-base lg:text-lg' : 'text-sm line-clamp-3'}
         `}>
                     {article.excerpt}
                 </p>
@@ -237,10 +237,25 @@ const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice }) => {
                 </div>
 
 
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {articles.map((article, index) => (
-                        <ArticleCard key={article.id} article={article} index={index} isGrid={true} />
-                    ))}
+                {/* Layout: 1 notícia principal + 3 abaixo */}
+                <div className="space-y-8">
+                    {articles.length > 0 && (
+                        <>
+                            {/* Notícia Principal */}
+                            <div className="grid gap-6">
+                                <ArticleCard key={articles[0].id} article={articles[0]} index={0} isGrid={false} />
+                            </div>
+
+                            {/* 3 Notícias Secundárias */}
+                            {articles.length > 1 && (
+                                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                    {articles.slice(1, 4).map((article, index) => (
+                                        <ArticleCard key={article.id} article={article} index={index + 1} isGrid={false} />
+                                    ))}
+                                </div>
+                            )}
+                        </>
+                    )}
                 </div>
 
             </div>
