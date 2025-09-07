@@ -137,7 +137,9 @@ export type HomePageDocument<Lang extends string = string> =
     Lang
   >;
 
-type JuncoNewsDocumentDataSlicesSlice = never;
+type JuncoNewsDocumentDataSlicesSlice =
+  | ArticlesGridSlice
+  | FeaturedArticlesSlice;
 
 /**
  * Content for junco_news documents
@@ -795,92 +797,6 @@ export type HeroStatsWithActionsSlice = prismic.SharedSlice<
 >;
 
 /**
- * Primary content in *NewsHero → Default → Primary*
- */
-export interface NewsHeroSliceDefaultPrimary {
-  /**
-   * Hero Title field in *NewsHero → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Últimas Notícias
-   * - **API ID Path**: news_hero.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  title: prismic.KeyTextField;
-
-  /**
-   * Hero Subtitle field in *NewsHero → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Fique por dentro dos acontecimentos
-   * - **API ID Path**: news_hero.default.primary.subtitle
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  subtitle: prismic.KeyTextField;
-
-  /**
-   * Hero Description field in *NewsHero → Default → Primary*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: Descrição do conteúdo de notícias...
-   * - **API ID Path**: news_hero.default.primary.description
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  description: prismic.RichTextField;
-
-  /**
-   * Background Image field in *NewsHero → Default → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: news_hero.default.primary.background_image
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  background_image: prismic.ImageField<"mobile">;
-
-  /**
-   * Show Search Bar field in *NewsHero → Default → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: true
-   * - **API ID Path**: news_hero.default.primary.show_search
-   * - **Documentation**: https://prismic.io/docs/fields/boolean
-   */
-  show_search: prismic.BooleanField;
-}
-
-/**
- * Default variation for NewsHero Slice
- *
- * - **API ID**: `default`
- * - **Description**: News hero section with title, description, and featured image
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type NewsHeroSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<NewsHeroSliceDefaultPrimary>,
-  never
->;
-
-/**
- * Slice variation for *NewsHero*
- */
-type NewsHeroSliceVariation = NewsHeroSliceDefault;
-
-/**
- * NewsHero Shared Slice
- *
- * - **API ID**: `news_hero`
- * - **Description**: Hero section for news page with customizable content
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type NewsHeroSlice = prismic.SharedSlice<
-  "news_hero",
-  NewsHeroSliceVariation
->;
-
-/**
  * Item in *PresentersTeam → Default → Primary → Presenters → Social Links*
  */
 export interface PresentersTeamSliceDefaultPrimaryPresentersPresenterSocialLinksItem {
@@ -1206,10 +1122,6 @@ declare module "@prismicio/client" {
       HeroStatsWithActionsSliceDefaultPrimary,
       HeroStatsWithActionsSliceVariation,
       HeroStatsWithActionsSliceDefault,
-      NewsHeroSlice,
-      NewsHeroSliceDefaultPrimary,
-      NewsHeroSliceVariation,
-      NewsHeroSliceDefault,
       PresentersTeamSlice,
       PresentersTeamSliceDefaultPrimaryPresentersPresenterSocialLinksItem,
       PresentersTeamSliceDefaultPrimaryPresentersItem,

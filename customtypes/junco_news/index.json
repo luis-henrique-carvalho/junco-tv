@@ -1,14 +1,24 @@
 {
   "format": "page",
   "id": "junco_news",
+  "label": "junco_news",
+  "repeatable": false,
+  "status": true,
   "json": {
     "Main": {
       "slices": {
-        "config": {
-          "choices": {}
-        },
+        "type": "Slices",
         "fieldset": "Slice Zone",
-        "type": "Slices"
+        "config": {
+          "choices": {
+            "articles_grid": {
+              "type": "SharedSlice"
+            },
+            "featured_articles": {
+              "type": "SharedSlice"
+            }
+          }
+        }
       }
     },
     "SEO & Metadata": {
@@ -38,8 +48,5 @@
         "type": "Image"
       }
     }
-  },
-  "label": "junco_news",
-  "repeatable": false,
-  "status": true
+  }
 }

@@ -26,101 +26,19 @@ import { Calendar, Clock, User, Search, Filter, SortAsc, SortDesc, Grid, List } 
 /**
  * Props for `ArticlesGrid`.
  */
-export type ArticlesGridProps = SliceComponentProps<any>;
+export type ArticlesGridProps = SliceComponentProps<any> & {
+    articles?: any[];
+    pagination?: {
+        currentPage: number;
+        totalPages: number;
+        totalResults: number;
+        hasNextPage: boolean;
+        hasPrevPage: boolean;
+        nextPage: string | null;
+        prevPage: string | null;
+    };
+};
 
-// Extended mock data for demonstration
-const mockArticles = [
-    {
-        id: "1",
-        title: "Nova Tecnologia Revoluciona Setor de Comunicações",
-        excerpt: "Descoberta científica promete transformar a forma como nos comunicamos digitalmente, oferecendo velocidades até 10x maiores que as atuais tecnologias disponíveis.",
-        category: "Tecnologia",
-        author: "João Silva",
-        publication_date: "2024-01-15",
-        reading_time: 5,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600",
-            alt: "Tecnologia futurista"
-        },
-        featured: true,
-        slug: "nova-tecnologia-revoluciona-comunicacoes"
-    },
-    {
-        id: "2",
-        title: "Economia Local Apresenta Crescimento de 15%",
-        excerpt: "Relatório mostra que a economia da região teve o melhor desempenho dos últimos cinco anos, impulsionada principalmente pelo setor de serviços e inovação.",
-        category: "Economia",
-        author: "Maria Santos",
-        publication_date: "2024-01-14",
-        reading_time: 8,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600",
-            alt: "Gráficos econômicos"
-        },
-        featured: true,
-        slug: "economia-local-crescimento-15-porcento"
-    },
-    {
-        id: "3",
-        title: "Time Local Conquista Campeonato Regional",
-        excerpt: "Em partida emocionante que durou 90 minutos, equipe da cidade vence por 3 a 2 e garante o título mais importante da temporada.",
-        category: "Esportes",
-        author: "Pedro Costa",
-        publication_date: "2024-01-13",
-        reading_time: 4,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&h=600",
-            alt: "Celebração esportiva"
-        },
-        featured: false,
-        slug: "time-local-conquista-campeonato-regional"
-    },
-    {
-        id: "4",
-        title: "Nova Lei Ambiental Entra em Vigor",
-        excerpt: "Medidas mais rigorosas de proteção ao meio ambiente começam a valer a partir desta semana, afetando empresas e cidadãos.",
-        category: "Política",
-        author: "Ana Oliveira",
-        publication_date: "2024-01-12",
-        reading_time: 6,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=600",
-            alt: "Natureza e política ambiental"
-        },
-        featured: false,
-        slug: "nova-lei-ambiental-entra-vigor"
-    },
-    {
-        id: "5",
-        title: "Festival de Arte Movimenta Centro da Cidade",
-        excerpt: "Evento cultural reúne artistas locais e visitantes de outras regiões, promovendo a economia criativa e o turismo cultural.",
-        category: "Cultura",
-        author: "Carlos Mendes",
-        publication_date: "2024-01-11",
-        reading_time: 7,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1499159058454-75067059248a?w=800&h=600",
-            alt: "Festival de arte"
-        },
-        featured: false,
-        slug: "festival-arte-movimenta-centro-cidade"
-    },
-    {
-        id: "6",
-        title: "Novo Hospital Público Será Inaugurado",
-        excerpt: "Unidade de saúde moderna atenderá mais de 50 mil habitantes da região, oferecendo serviços especializados e tecnologia avançada.",
-        category: "Saúde",
-        author: "Dra. Paula Lima",
-        publication_date: "2024-01-10",
-        reading_time: 9,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600",
-            alt: "Hospital moderno"
-        },
-        featured: false,
-        slug: "novo-hospital-publico-sera-inaugurado"
-    }
-];
 
 const getCategoryColor = (category: string) => {
     const colors = {
@@ -148,48 +66,48 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                     <div className="flex gap-6 p-6">
                         {/* Image */}
                         <div className="flex-shrink-0">
-                            <img
-                                src={article.featured_image.url}
-                                alt={article.featured_image.alt}
+                            <PrismicNextImage
+                                field={article.data.featured_image}
                                 className="w-32 h-24 md:w-48 md:h-32 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                                alt=""
                             />
                         </div>
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between mb-3">
-                                <Badge className={`${getCategoryColor(article.category)} border`}>
-                                    {article.category}
+                                <Badge className={`${getCategoryColor(article.data.category)} border`}>
+                                    {article.data.category}
                                 </Badge>
                                 <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                                     <div className="flex items-center space-x-1">
                                         <Calendar className="w-3 h-3" />
-                                        <span>{new Date(article.publication_date).toLocaleDateString('pt-BR')}</span>
+                                        <span>{asDate(article.data.publication_date)?.toLocaleDateString('pt-BR')}</span>
                                     </div>
                                     <div className="flex items-center space-x-1">
                                         <Clock className="w-3 h-3" />
-                                        <span>{article.reading_time} min</span>
+                                        <span>{article.data.reading_time} min</span>
                                     </div>
                                 </div>
                             </div>
 
                             <CardTitle className="text-lg lg:text-xl text-foreground leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                                {article.title}
+                                <PrismicRichText field={article.data.title} />
                             </CardTitle>
 
-                            <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">
-                                {article.excerpt}
-                            </p>
+                            <div className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-2">
+                                <PrismicRichText field={article.data.excerpt} />
+                            </div>
 
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                                     <User className="w-3 h-3" />
-                                    <span>{article.author}</span>
+                                    <span>{article.data.author}</span>
                                 </div>
                                 <Button variant="ghost" size="sm" className="text-primary hover:bg-primary/10" asChild>
-                                    <a href={`/junco-news/${article.slug}`}>
+                                    <PrismicNextLink field={article}>
                                         Ler mais
-                                    </a>
+                                    </PrismicNextLink>
                                 </Button>
                             </div>
                         </div>
@@ -204,27 +122,27 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
             className="group bg-card border transition-colors duration-200 hover:shadow-md h-full flex flex-col overflow-hidden"
         >
             <div className="relative overflow-hidden">
-                <img
-                    src={article.featured_image.url}
-                    alt={article.featured_image.alt}
+                <PrismicNextImage
+                    field={article.data.featured_image}
                     className="w-full h-48 object-cover transition-transform duration-200"
+                    alt=""
                 />
 
                 <div className="absolute top-4 left-4">
-                    <Badge className={`${getCategoryColor(article.category)} border`}>
-                        {article.category}
+                    <Badge className={`${getCategoryColor(article.data.category)} border`}>
+                        {article.data.category}
                     </Badge>
                 </div>
             </div>
 
             <CardContent className="flex-1 p-6 flex flex-col">
                 <CardTitle className="text-lg text-foreground leading-tight mb-3 transition-colors line-clamp-2">
-                    {article.title}
+                    <PrismicRichText field={article.data.title} />
                 </CardTitle>
 
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1 line-clamp-3">
-                    {article.excerpt}
-                </p>
+                <div className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1 line-clamp-3">
+                    <PrismicRichText field={article.data.excerpt} />
+                </div>
 
                 <Separator className="my-4" />
 
@@ -233,16 +151,16 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                         <div className="flex items-center space-x-4">
                             <div className="flex items-center space-x-1">
                                 <User className="w-3 h-3" />
-                                <span>{article.author}</span>
+                                <span>{article.data.author}</span>
                             </div>
                             <div className="flex items-center space-x-1">
                                 <Calendar className="w-3 h-3" />
-                                <span>{new Date(article.publication_date).toLocaleDateString('pt-BR')}</span>
+                                <span>{asDate(article.data.publication_date)?.toLocaleDateString('pt-BR')}</span>
                             </div>
                         </div>
                         <div className="flex items-center space-x-1">
                             <Clock className="w-3 h-3" />
-                            <span>{article.reading_time} min</span>
+                            <span>{article.data.reading_time} min</span>
                         </div>
                     </div>
 
@@ -251,9 +169,9 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                         className="w-full"
                         asChild
                     >
-                        <a href={`/junco-news/${article.slug}`}>
+                        <PrismicNextLink field={article}>
                             Ler Artigo Completo
-                        </a>
+                        </PrismicNextLink>
                     </Button>
                 </div>
             </CardContent>
@@ -264,17 +182,16 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
 /**
  * Component for "ArticlesGrid" Slices.
  */
-const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
+const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice, articles = [], pagination }) => {
     const { primary } = slice;
 
     // State management
     const [searchTerm, setSearchTerm] = React.useState("");
     const [selectedCategory, setSelectedCategory] = React.useState("all");
     const [sortOrder, setSortOrder] = React.useState(primary.default_sort || "publication_date_desc");
-    const [currentPage, setCurrentPage] = React.useState(1);
     const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
 
-    const articlesPerPage = primary.articles_per_page || 12;
+    const articlesPerPage = primary.articles_per_page || 1;
 
     // Get available categories from slice or fallback to mockup
     const availableCategories = React.useMemo(() => {
@@ -297,23 +214,27 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
         return sliceCategories.length > 0 ? sliceCategories : fallbackCategories;
     }, [primary.filter_categories]);
 
-    // Filter and sort articles
+    // Filter and sort articles (frontend)
     const filteredAndSortedArticles = React.useMemo(() => {
-        let filtered = mockArticles;
+        let filtered = articles;
 
         // Apply search filter
         if (searchTerm) {
-            filtered = filtered.filter(article =>
-                article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                article.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                article.author.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+            filtered = filtered.filter(article => {
+                const title = article.data.title?.[0]?.text || '';
+                const excerpt = article.data.excerpt?.[0]?.text || '';
+                const author = article.data.author || '';
+
+                return title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    author.toLowerCase().includes(searchTerm.toLowerCase());
+            });
         }
 
         // Apply category filter
         if (selectedCategory !== "all") {
             filtered = filtered.filter(article =>
-                article.category.toLowerCase() === selectedCategory.toLowerCase()
+                article.data.category?.toLowerCase() === selectedCategory.toLowerCase()
             );
         }
 
@@ -321,32 +242,37 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
         filtered.sort((a, b) => {
             switch (sortOrder) {
                 case "publication_date_desc":
-                    return new Date(b.publication_date).getTime() - new Date(a.publication_date).getTime();
+                    return new Date(b.data.publication_date || 0).getTime() - new Date(a.data.publication_date || 0).getTime();
                 case "publication_date_asc":
-                    return new Date(a.publication_date).getTime() - new Date(b.publication_date).getTime();
+                    return new Date(a.data.publication_date || 0).getTime() - new Date(b.data.publication_date || 0).getTime();
                 case "title_asc":
-                    return a.title.localeCompare(b.title);
+                    const titleA = a.data.title?.[0]?.text || '';
+                    const titleB = b.data.title?.[0]?.text || '';
+                    return titleA.localeCompare(titleB);
                 case "title_desc":
-                    return b.title.localeCompare(a.title);
+                    const titleA2 = a.data.title?.[0]?.text || '';
+                    const titleB2 = b.data.title?.[0]?.text || '';
+                    return titleB2.localeCompare(titleA2);
                 default:
                     return 0;
             }
         });
 
         return filtered;
-    }, [searchTerm, selectedCategory, sortOrder]);
+    }, [articles, searchTerm, selectedCategory, sortOrder]);
 
-    // Pagination
-    const totalPages = Math.ceil(filteredAndSortedArticles.length / articlesPerPage);
-    const paginatedArticles = filteredAndSortedArticles.slice(
-        (currentPage - 1) * articlesPerPage,
-        currentPage * articlesPerPage
-    );
+    // Função para navegar para uma nova página (server-side pagination)
+    const navigateToPage = (newPage: number) => {
+        const params = new URLSearchParams();
+        params.set('page', newPage.toString());
 
-    // Reset page when filters change
-    React.useEffect(() => {
-        setCurrentPage(1);
-    }, [searchTerm, selectedCategory, sortOrder]);
+        if (articlesPerPage !== 12) {
+            params.set('pageSize', articlesPerPage.toString());
+        }
+
+        const url = params.toString() ? `?${params.toString()}` : '';
+        window.location.href = `/junco-news${url}`;
+    };
 
     return (
         <section
@@ -451,24 +377,24 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
                 </div>
 
                 {/* Articles */}
-                {paginatedArticles.length > 0 ? (
+                {filteredAndSortedArticles.length > 0 ? (
                     <>
                         {viewMode === 'grid' ? (
                             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-12">
-                                {paginatedArticles.map((article, index) => (
+                                {filteredAndSortedArticles.map((article, index) => (
                                     <ArticleCard key={article.id} article={article} index={index} viewMode={viewMode} />
                                 ))}
                             </div>
                         ) : (
                             <div className="space-y-6 mb-12">
-                                {paginatedArticles.map((article, index) => (
+                                {filteredAndSortedArticles.map((article, index) => (
                                     <ArticleCard key={article.id} article={article} index={index} viewMode={viewMode} />
                                 ))}
                             </div>
                         )}
 
                         {/* Pagination */}
-                        {totalPages > 1 && (
+                        {pagination && pagination.totalPages > 1 && (
                             <Pagination className="mt-8">
                                 <PaginationContent>
                                     <PaginationItem>
@@ -476,13 +402,15 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
                                             href="#"
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                if (currentPage > 1) setCurrentPage(currentPage - 1);
+                                                if (pagination.hasPrevPage) {
+                                                    navigateToPage(pagination.currentPage - 1);
+                                                }
                                             }}
-                                            className={currentPage <= 1 ? "pointer-events-none opacity-50" : ""}
+                                            className={!pagination.hasPrevPage ? "pointer-events-none opacity-50" : ""}
                                         />
                                     </PaginationItem>
 
-                                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                    {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
                                         const page = i + 1;
                                         return (
                                             <PaginationItem key={page}>
@@ -490,9 +418,9 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
                                                     href="#"
                                                     onClick={(e) => {
                                                         e.preventDefault();
-                                                        setCurrentPage(page);
+                                                        navigateToPage(page);
                                                     }}
-                                                    isActive={currentPage === page}
+                                                    isActive={pagination.currentPage === page}
                                                 >
                                                     {page}
                                                 </PaginationLink>
@@ -500,7 +428,7 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
                                         );
                                     })}
 
-                                    {totalPages > 5 && (
+                                    {pagination.totalPages > 5 && (
                                         <PaginationItem>
                                             <PaginationEllipsis />
                                         </PaginationItem>
@@ -511,9 +439,11 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice }) => {
                                             href="#"
                                             onClick={(e) => {
                                                 e.preventDefault();
-                                                if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                                                if (pagination.hasNextPage) {
+                                                    navigateToPage(pagination.currentPage + 1);
+                                                }
                                             }}
-                                            className={currentPage >= totalPages ? "pointer-events-none opacity-50" : ""}
+                                            className={!pagination.hasNextPage ? "pointer-events-none opacity-50" : ""}
                                         />
                                     </PaginationItem>
                                 </PaginationContent>

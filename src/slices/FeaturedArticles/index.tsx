@@ -13,87 +13,9 @@ import { Calendar, Clock, User, ArrowRight, TrendingUp } from "lucide-react";
 /**
  * Props for `FeaturedArticles`.
  */
-export type FeaturedArticlesProps = SliceComponentProps<any>;
-
-// Mock article data for demonstration - In real implementation, this would come from Prismic API
-const mockArticles = [
-    {
-        id: "1",
-        title: "Nova Tecnologia Revoluciona Setor de Comunicações",
-        excerpt: "Descoberta científica promete transformar a forma como nos comunicamos digitalmente, oferecendo velocidades até 10x maiores.",
-        category: "Tecnologia",
-        author: "João Silva",
-        publication_date: "2024-01-15",
-        reading_time: 5,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=600",
-            alt: "Tecnologia futurista"
-        },
-        featured: true,
-        slug: "nova-tecnologia-revoluciona-comunicacoes"
-    },
-    {
-        id: "2",
-        title: "Economia Local Apresenta Crescimento de 15%",
-        excerpt: "Relatório mostra que a economia da região teve o melhor desempenho dos últimos cinco anos, impulsionada pelo setor de serviços.",
-        category: "Economia",
-        author: "Maria Santos",
-        publication_date: "2024-01-14",
-        reading_time: 8,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600",
-            alt: "Gráficos econômicos"
-        },
-        featured: true,
-        slug: "economia-local-crescimento-15-porcento"
-    },
-    {
-        id: "3",
-        title: "Time Local Conquista Campeonato Regional",
-        excerpt: "Em partida emocionante, equipe da cidade vence por 3 a 2 e garante o título mais importante da temporada.",
-        category: "Esportes",
-        author: "Pedro Costa",
-        publication_date: "2024-01-13",
-        reading_time: 4,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&h=600",
-            alt: "Celebração esportiva"
-        },
-        featured: true,
-        slug: "time-local-conquista-campeonato-regional"
-    },
-    {
-        id: "4",
-        title: "Nova Lei Ambiental Entra em Vigor",
-        excerpt: "Medidas mais rigorosas de proteção ao meio ambiente começam a valer a partir desta semana, afetando empresas e cidadãos.",
-        category: "Política",
-        author: "Ana Oliveira",
-        publication_date: "2024-01-12",
-        reading_time: 6,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=600",
-            alt: "Natureza e política ambiental"
-        },
-        featured: false,
-        slug: "nova-lei-ambiental-entra-vigor"
-    },
-    {
-        id: "5",
-        title: "Festival de Arte Movimenta Centro da Cidade",
-        excerpt: "Evento cultural reúne artistas locais e visitantes de outras regiões, promovendo a economia criativa e o turismo cultural.",
-        category: "Cultura",
-        author: "Carlos Mendes",
-        publication_date: "2024-01-11",
-        reading_time: 7,
-        featured_image: {
-            url: "https://images.unsplash.com/photo-1499159058454-75067059248a?w=800&h=600",
-            alt: "Festival de arte"
-        },
-        featured: false,
-        slug: "festival-arte-movimenta-centro-cidade"
-    },
-]
-
+export type FeaturedArticlesProps = SliceComponentProps<any> & {
+    articles?: any[];
+};
 
 const getCategoryColor = (category: string) => {
     const colors = {
@@ -117,23 +39,23 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
       `}
         >
             <div className={`relative overflow-hidden ${isFeatured ? 'lg:w-1/2' : ''}`}>
-                <img
-                    src={article.featured_image.url}
-                    alt={article.featured_image.alt}
+                <PrismicNextImage
+                    field={article.data.featured_image}
                     className={`w-full object-cover transition-transform duration-200
             ${isFeatured ? 'h-64 lg:h-full lg:min-h-[300px]' : 'h-48'}
           `}
+                    alt=""
                 />
 
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
-                    <Badge className={`${getCategoryColor(article.category)} border`}>
-                        {article.category}
+                    <Badge className={`${getCategoryColor(article.data.category)} border`}>
+                        {article.data.category}
                     </Badge>
                 </div>
 
                 {/* Featured Badge */}
-                {article.featured && (
+                {article.data.featured && (
                     <div className="absolute top-4 right-4">
                         <Badge variant="secondary" className="bg-background/90 text-foreground border">
                             Destaque
@@ -147,15 +69,15 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
                 <CardTitle className={`text-foreground leading-tight mb-3 transition-colors
           ${isFeatured ? 'text-xl lg:text-2xl' : 'text-lg'}
         `}>
-                    {article.title}
+                    <PrismicRichText field={article.data.title} />
                 </CardTitle>
 
                 {/* Excerpt */}
-                <p className={`text-muted-foreground leading-relaxed mb-4 flex-1
+                <div className={`text-muted-foreground leading-relaxed mb-4 flex-1
           ${isFeatured ? 'text-base lg:text-lg' : 'text-sm line-clamp-3'}
         `}>
-                    {article.excerpt}
-                </p>
+                    <PrismicRichText field={article.data.excerpt} />
+                </div>
 
                 <Separator className="my-4" />
 
@@ -165,16 +87,16 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
                         <div className="flex items-center space-x-4">
                             <div className="flex items-center space-x-1">
                                 <User className="w-3 h-3" />
-                                <span>{article.author}</span>
+                                <span>{article.data.author}</span>
                             </div>
                             <div className="flex items-center space-x-1">
                                 <Calendar className="w-3 h-3" />
-                                <span>{new Date(article.publication_date).toLocaleDateString('pt-BR')}</span>
+                                <span>{asDate(article.data.publication_date)?.toLocaleDateString('pt-BR')}</span>
                             </div>
                         </div>
                         <div className="flex items-center space-x-1">
                             <Clock className="w-3 h-3" />
-                            <span>{article.reading_time} min</span>
+                            <span>{article.data.reading_time} min</span>
                         </div>
                     </div>
 
@@ -184,10 +106,10 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
                         className="w-full justify-between"
                         asChild
                     >
-                        <a href={`/junco-news/${article.slug}`}>
+                        <PrismicNextLink field={article}>
                             Ler Artigo Completo
                             <ArrowRight className="w-4 h-4" />
-                        </a>
+                        </PrismicNextLink>
                     </Button>
                 </div>
             </CardContent>
@@ -198,11 +120,8 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
 /**
  * Component for "FeaturedArticles" Slices.
  */
-const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice }) => {
+const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice, articles = [] }) => {
     const { primary } = slice;
-
-    const maxArticles = primary.max_articles || 6;
-    const articles = mockArticles.slice(0, maxArticles);
 
     return (
         <section

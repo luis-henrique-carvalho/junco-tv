@@ -165,6 +165,7 @@ function NewsArticleContent({ page }: { page: any }) {
                                         field={page.data.featured_image}
                                         className="w-full h-full object-cover"
                                         priority
+                                        alt=""
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                                 </div>
@@ -206,16 +207,19 @@ function NewsArticleContent({ page }: { page: any }) {
                                                 em: ({ children }) => (
                                                     <em className="italic text-foreground">{children}</em>
                                                 ),
-                                                hyperlink: ({ children, node }) => (
-                                                    <a
-                                                        href={node.data.url || "#"}
-                                                        className="text-primary underline-offset-4 hover:underline font-medium"
-                                                        target={node.data.target || undefined}
-                                                        rel={node.data.target === "_blank" ? "noopener noreferrer" : undefined}
-                                                    >
-                                                        {children}
-                                                    </a>
-                                                ),
+                                                hyperlink: ({ children, node }) => {
+                                                    const target = (node.data as any).target;
+                                                    return (
+                                                        <a
+                                                            href={node.data.url || "#"}
+                                                            className="text-primary underline-offset-4 hover:underline font-medium"
+                                                            target={target || undefined}
+                                                            rel={target === "_blank" ? "noopener noreferrer" : undefined}
+                                                        >
+                                                            {children}
+                                                        </a>
+                                                    );
+                                                },
                                                 listItem: ({ children }) => (
                                                     <li className="mb-2 text-lg text-foreground">{children}</li>
                                                 ),

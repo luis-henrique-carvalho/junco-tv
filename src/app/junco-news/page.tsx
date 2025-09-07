@@ -7,118 +7,76 @@ import { components } from "@/slices";
 
 // Import loading component
 import Loading from "./loading";
+import { notFound } from "next/navigation";
+import { asImageSrc } from "@prismicio/client";
+
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 /**
  * Generates metadata for the news index page.
  */
 export async function generateMetadata(): Promise<Metadata> {
     const client = createClient();
+    const page = await client.getSingle("junco_news").catch(() => notFound());
 
-    try {
-        const page = await client.getSingle("news_index");
-
-        return {
-            title: page.data.meta_title || "Notícias - Junco TV",
-            description: page.data.meta_description || "Acompanhe as principais notícias e acontecimentos da região com a cobertura completa da Junco TV.",
-            openGraph: {
-                title: page.data.meta_title || "Notícias - Junco TV",
-                description: page.data.meta_description || "Acompanhe as principais notícias e acontecimentos da região.",
-                images: page.data.meta_image?.url ? [
-                    {
-                        url: page.data.meta_image.url,
-                        width: 1200,
-                        height: 630,
-                        alt: page.data.meta_image.alt || "Notícias Junco TV",
-                    }
-                ] : [],
-            },
-            twitter: {
-                card: "summary_large_image",
-                title: page.data.meta_title || "Notícias - Junco TV",
-                description: page.data.meta_description || "Acompanhe as principais notícias e acontecimentos da região.",
-                images: page.data.meta_image?.url ? [page.data.meta_image.url] : [],
-            },
-        };
-    } catch (error) {
-        // Fallback metadata if page doesn't exist in Prismic yet
-        return {
-            title: "Notícias - Junco TV",
-            description: "Acompanhe as principais notícias e acontecimentos da região com a cobertura completa da Junco TV.",
-        };
-    }
-}
-
-/**
- * News index page component that displays the SliceZone with news content.
- */
-export default async function NewsIndexPage() {
-    const client = createClient();
-
-    let page;
-    try {
-        page = await client.getSingle("news_index");
-    } catch (error) {
-        // If the news_index doesn't exist yet, render a default page with slices
-        return (
-            <Suspense fallback={<Loading />}>
-                <DefaultNewsPage />
-            </Suspense>
-        );
-    }
-
-    return (
-        <Suspense fallback={<Loading />}>
-            <SliceZone slices={page.data.slices} components={components} />
-        </Suspense>
-    );
-}
-
-function DefaultNewsPage() {
-    // Mock slice data that matches our implemented slices
-    const mockSlices = [
-        {
-            slice_type: "featured_articles",
-            variation: "default",
-            primary: {
-                section_title: "Notícias em Destaque",
-                section_description: [
-                    {
-                        type: "paragraph",
-                        text: "As principais notícias selecionadas pela nossa redação para você ficar por dentro dos acontecimentos mais importantes.",
-                        spans: []
-                    }
-                ],
-                max_articles: 6,
-                show_category_filter: false,
-                layout_style: "Grid"
-            },
-            items: []
+    return {
+        title: page.data.meta_title,
+        description: page.data.meta_description,
+        openGraph: {
+            images: [{ url: asImageSrc(page.data.meta_image) ?? "" }],
         },
-        {
-            slice_type: "articles_grid",
-            variation: "default",
-            primary: {
-                section_title: "Todas as Notícias",
-                articles_per_page: 12,
-                show_filters: true,
-                show_search: true,
-                default_sort: "publication_date_desc",
-                filter_categories: [
-                    { category_name: "Tecnologia", category_slug: "tecnologia" },
-                    { category_name: "Economia", category_slug: "economia" },
-                    { category_name: "Esportes", category_slug: "esportes" },
-                    { category_name: "Política", category_slug: "politica" },
-                    { category_name: "Cultura", category_slug: "cultura" },
-                    { category_name: "Saúde", category_slug: "saude" }
-                ]
-            },
-            items: []
-        }
-    ];
+    };
+}
 
-    return (
-        <div>
-            <SliceZone slices={mockSlices as any} components={components} />
-        </div>
-    );
+
+export default async function Page(props: { searchParams: SearchParams }) {
+    const searchParams = await props.searchParams;
+    const client = createClient();
+    const page = await client.getSingle("junco_news").catch(() => notFound());
+
+    // Parâmetros de paginação
+    const currentPage = parseInt(searchParams.page as string) || 1;
+    const pageSize = parseInt(searchParams.pageSize as string) || 1;
+
+    // Buscar artigos com paginação do Prismic
+    const articlesResponse = await client.getByType("news_article", {
+        fetchLinks: ["news_article.category", "news_article.author"],
+        pageSize: pageSize,
+        page: currentPage,
+        orderings: [{ field: "document.first_publication_date", direction: "desc" }]
+    });
+
+    // Buscar todos os artigos para FeaturedArticles (primeiros 4)
+    const featuredArticles = await client.getAllByType("news_article", {
+        fetchLinks: ["news_article.category", "news_article.author"],
+        pageSize: 4,
+        orderings: [{ field: "document.first_publication_date", direction: "desc" }]
+    });
+
+    // Passar os artigos e metadados de paginação para os componentes
+    const componentsWithArticles = {
+        ...components,
+        featured_articles: (props: any) => {
+            const FeaturedArticlesComponent = components.featured_articles;
+            return <FeaturedArticlesComponent {...props} articles={featuredArticles} />;
+        },
+        articles_grid: (props: any) => {
+            const ArticlesGridComponent = components.articles_grid;
+            return <ArticlesGridComponent
+                {...props}
+                articles={articlesResponse.results}
+                pagination={{
+                    currentPage,
+                    totalPages: articlesResponse.total_pages,
+                    totalResults: articlesResponse.total_results_size,
+                    hasNextPage: articlesResponse.next_page !== null,
+                    hasPrevPage: articlesResponse.prev_page !== null,
+                    nextPage: articlesResponse.next_page,
+                    prevPage: articlesResponse.prev_page
+                }}
+            />;
+        }
+    };
+
+    return <SliceZone slices={page.data.slices} components={componentsWithArticles} />;
 }
