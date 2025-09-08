@@ -5,6 +5,7 @@ import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import { NavigationMenuDemo } from "@/components/layout/navgate-menu";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
 
+        <Toaster />
         <PrismicPreview repositoryName={repositoryName} />
       </body>
     </html>

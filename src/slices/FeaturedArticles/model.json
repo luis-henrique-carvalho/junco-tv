@@ -2,14 +2,14 @@
     "id": "featured_articles",
     "type": "SharedSlice",
     "name": "FeaturedArticles",
-    "description": "Section displaying featured news articles",
+    "description": "Section displaying 4 featured news articles with controlled order",
     "variations": [
         {
             "id": "default",
             "name": "Default",
             "docURL": "...",
             "version": "initial",
-            "description": "Featured articles grid with customizable layout",
+            "description": "Featured articles section showing 4 articles in controlled order",
             "imageUrl": "",
             "primary": {
                 "section_title": {
@@ -26,34 +26,6 @@
                         "placeholder": "As principais notícias selecionadas pela redação...",
                         "allowTargetBlank": true,
                         "multi": "paragraph,strong,em,hyperlink"
-                    }
-                },
-                "max_articles": {
-                    "type": "Number",
-                    "config": {
-                        "label": "Max Articles to Show",
-                        "placeholder": "6"
-                    }
-                },
-                "show_category_filter": {
-                    "type": "Boolean",
-                    "config": {
-                        "label": "Show Category Filter",
-                        "placeholder_false": "Não",
-                        "placeholder_true": "Sim",
-                        "default_value": false
-                    }
-                },
-                "layout_style": {
-                    "type": "Select",
-                    "config": {
-                        "label": "Layout Style",
-                        "placeholder": "Escolha o estilo",
-                        "options": [
-                            "Grid",
-                            "Carousel",
-                            "List"
-                        ]
                     }
                 }
             },

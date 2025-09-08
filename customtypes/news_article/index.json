@@ -99,6 +99,13 @@
           "placeholder": "tag1, tag2, tag3"
         }
       },
+      "reading_time": {
+        "type": "Number",
+        "config": {
+          "label": "Tempo de Leitura (minutos)",
+          "placeholder": "5"
+        }
+      },
       "featured": {
         "type": "Boolean",
         "config": {
@@ -108,11 +115,12 @@
           "default_value": false
         }
       },
-      "reading_time": {
-        "type": "Number",
+      "featured_order": {
+        "type": "Select",
         "config": {
-          "label": "Tempo de Leitura (minutos)",
-          "placeholder": "5"
+          "label": "Ordem de Destaque",
+          "placeholder": "",
+          "options": ["none", "1", "2", "3", "4"]
         }
       }
     },

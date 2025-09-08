@@ -22,7 +22,7 @@ export default function HeroStatsWithActions({ slice }: HeroStatsWithActionsProp
   const { primary } = slice;
 
   return (
-    <section className="relative overflow-hidden py-8 lg:py-12">
+    <section className="relative overflow-hidden py-6 lg:py-8">
       {/* Floating particles background */}
       <FloatingParticles />
 

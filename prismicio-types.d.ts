@@ -306,6 +306,17 @@ interface NewsArticleDocumentData {
   tags: prismic.KeyTextField;
 
   /**
+   * Tempo de Leitura (minutos) field in *News Article*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: 5
+   * - **API ID Path**: news_article.reading_time
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/number
+   */
+  reading_time: prismic.NumberField;
+
+  /**
    * Artigo em Destaque field in *News Article*
    *
    * - **Field Type**: Boolean
@@ -318,15 +329,15 @@ interface NewsArticleDocumentData {
   featured: prismic.BooleanField;
 
   /**
-   * Tempo de Leitura (minutos) field in *News Article*
+   * Ordem de Destaque field in *News Article*
    *
-   * - **Field Type**: Number
-   * - **Placeholder**: 5
-   * - **API ID Path**: news_article.reading_time
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_article.featured_order
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/fields/number
+   * - **Documentation**: https://prismic.io/docs/fields/select
    */
-  reading_time: prismic.NumberField /**
+  featured_order: prismic.SelectField<"none" | "1" | "2" | "3" | "4"> /**
    * Meta Título field in *News Article*
    *
    * - **Field Type**: Text
