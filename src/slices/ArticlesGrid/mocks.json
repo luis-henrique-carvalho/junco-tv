@@ -1,0 +1,40 @@
+[
+    {
+        "__TYPE__": "SharedSliceContent",
+        "variation": "default",
+        "primary": {
+            "section_title": "Todas as Notícias",
+            "articles_per_page": 12,
+            "show_filters": true,
+            "show_search": true,
+            "default_sort": "publication_date_desc",
+            "filter_categories": [
+                {
+                    "category_name": "Tecnologia",
+                    "category_slug": "tecnologia"
+                },
+                {
+                    "category_name": "Economia",
+                    "category_slug": "economia"
+                },
+                {
+                    "category_name": "Esportes",
+                    "category_slug": "esportes"
+                },
+                {
+                    "category_name": "Política",
+                    "category_slug": "politica"
+                },
+                {
+                    "category_name": "Cultura",
+                    "category_slug": "cultura"
+                },
+                {
+                    "category_name": "Saúde",
+                    "category_slug": "saude"
+                }
+            ]
+        },
+        "items": []
+    }
+]

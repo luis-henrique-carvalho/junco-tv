@@ -1,0 +1,87 @@
+{
+    "id": "articles_grid",
+    "type": "SharedSlice",
+    "name": "ArticlesGrid",
+    "description": "Articles grid with filtering and pagination",
+    "variations": [
+        {
+            "id": "default",
+            "name": "Default",
+            "docURL": "...",
+            "version": "initial",
+            "description": "Articles grid with filters, search, and pagination",
+            "imageUrl": "",
+            "primary": {
+                "section_title": {
+                    "type": "Text",
+                    "config": {
+                        "label": "Section Title",
+                        "placeholder": "Todas as Notícias"
+                    }
+                },
+                "articles_per_page": {
+                    "type": "Number",
+                    "config": {
+                        "label": "Articles per Page",
+                        "placeholder": "12"
+                    }
+                },
+                "show_filters": {
+                    "type": "Boolean",
+                    "config": {
+                        "label": "Show Filters",
+                        "placeholder_false": "Não",
+                        "placeholder_true": "Sim",
+                        "default_value": true
+                    }
+                },
+                "show_search": {
+                    "type": "Boolean",
+                    "config": {
+                        "label": "Show Search",
+                        "placeholder_false": "Não",
+                        "placeholder_true": "Sim",
+                        "default_value": true
+                    }
+                },
+                "default_sort": {
+                    "type": "Select",
+                    "config": {
+                        "label": "Default Sort Order",
+                        "placeholder": "Escolha a ordenação",
+                        "options": [
+                            "publication_date_desc",
+                            "publication_date_asc",
+                            "title_asc",
+                            "title_desc"
+                        ]
+                    }
+                },
+                "filter_categories": {
+                    "type": "Group",
+                    "config": {
+                        "label": "Available Categories",
+                        "repeat": true,
+                        "fields": {
+                            "category_name": {
+                                "type": "Text",
+                                "config": {
+                                    "label": "Category Name",
+                                    "placeholder": "Tecnologia"
+                                }
+                            },
+                            "category_slug": {
+                                "type": "Text",
+                                "config": {
+                                    "label": "Category Slug",
+                                    "placeholder": "tecnologia"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "items": {}
+        }
+    ]
+}

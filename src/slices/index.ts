@@ -6,4 +6,6 @@ export const components = {
   hero_stats_with_actions: dynamic(() => import("./HeroStatsWithActions")),
   presenters_team: dynamic(() => import("./PresentersTeam")),
   programs_list: dynamic(() => import("./ProgramsList")),
+  featured_articles: dynamic(() => import("./FeaturedArticles")),
+  articles_grid: dynamic(() => import("./ArticlesGrid")),
 };

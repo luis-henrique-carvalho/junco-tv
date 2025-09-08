@@ -1,0 +1,165 @@
+{
+  "format": "custom",
+  "id": "news_article",
+  "label": "News Article",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "URL Slug",
+          "placeholder": "artigo-sobre-tecnologia"
+        }
+      },
+      "title": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Título do Artigo",
+          "placeholder": "Digite o título principal...",
+          "allowTargetBlank": false,
+          "single": "heading1"
+        }
+      },
+      "subtitle": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Subtítulo",
+          "placeholder": "Breve descrição ou subtítulo...",
+          "allowTargetBlank": false,
+          "single": "paragraph"
+        }
+      },
+      "featured_image": {
+        "type": "Image",
+        "config": {
+          "label": "Imagem Destacada",
+          "constraint": {
+            "width": 1200,
+            "height": 630
+          },
+          "thumbnails": [
+            {
+              "name": "mobile",
+              "width": 768,
+              "height": 432
+            },
+            {
+              "name": "tablet",
+              "width": 1024,
+              "height": 576
+            }
+          ]
+        }
+      },
+      "excerpt": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Resumo/Excerpt",
+          "placeholder": "Breve resumo do artigo para SEO e cards...",
+          "allowTargetBlank": false,
+          "single": "paragraph"
+        }
+      },
+      "author": {
+        "type": "Text",
+        "config": {
+          "label": "Autor",
+          "placeholder": "Nome do autor"
+        }
+      },
+      "publication_date": {
+        "type": "Date",
+        "config": {
+          "label": "Data de Publicação"
+        }
+      },
+      "category": {
+        "type": "Select",
+        "config": {
+          "label": "Categoria",
+          "placeholder": "Selecione uma categoria",
+          "options": [
+            "Tecnologia",
+            "Esportes",
+            "Política",
+            "Economia",
+            "Cultura",
+            "Internacional",
+            "Saúde",
+            "Educação"
+          ]
+        }
+      },
+      "tags": {
+        "type": "Text",
+        "config": {
+          "label": "Tags",
+          "placeholder": "tag1, tag2, tag3"
+        }
+      },
+      "reading_time": {
+        "type": "Number",
+        "config": {
+          "label": "Tempo de Leitura (minutos)",
+          "placeholder": "5"
+        }
+      },
+      "featured": {
+        "type": "Boolean",
+        "config": {
+          "label": "Artigo em Destaque",
+          "placeholder_false": "Não",
+          "placeholder_true": "Sim",
+          "default_value": false
+        }
+      },
+      "featured_order": {
+        "type": "Select",
+        "config": {
+          "label": "Ordem de Destaque",
+          "placeholder": "",
+          "options": ["none", "1", "2", "3", "4"]
+        }
+      }
+    },
+    "SEO": {
+      "meta_title": {
+        "type": "Text",
+        "config": {
+          "label": "Meta Título",
+          "placeholder": "Título para SEO (máx. 60 caracteres)"
+        }
+      },
+      "meta_description": {
+        "type": "Text",
+        "config": {
+          "label": "Meta Descrição",
+          "placeholder": "Descrição para SEO (máx. 160 caracteres)"
+        }
+      },
+      "og_image": {
+        "type": "Image",
+        "config": {
+          "label": "Open Graph Image",
+          "constraint": {
+            "width": 1200,
+            "height": 630
+          }
+        }
+      }
+    },
+    "Content": {
+      "body": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Conteudo",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      }
+    }
+  }
+}

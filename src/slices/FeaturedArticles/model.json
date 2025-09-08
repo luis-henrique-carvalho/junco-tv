@@ -1,0 +1,35 @@
+{
+    "id": "featured_articles",
+    "type": "SharedSlice",
+    "name": "FeaturedArticles",
+    "description": "Section displaying 4 featured news articles with controlled order",
+    "variations": [
+        {
+            "id": "default",
+            "name": "Default",
+            "docURL": "...",
+            "version": "initial",
+            "description": "Featured articles section showing 4 articles in controlled order",
+            "imageUrl": "",
+            "primary": {
+                "section_title": {
+                    "type": "Text",
+                    "config": {
+                        "label": "Section Title",
+                        "placeholder": "Notícias em Destaque"
+                    }
+                },
+                "section_description": {
+                    "type": "StructuredText",
+                    "config": {
+                        "label": "Section Description",
+                        "placeholder": "As principais notícias selecionadas pela redação...",
+                        "allowTargetBlank": true,
+                        "multi": "paragraph,strong,em,hyperlink"
+                    }
+                }
+            },
+            "items": {}
+        }
+    ]
+}
