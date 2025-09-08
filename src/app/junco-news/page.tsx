@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { Metadata } from "next";
 import { SliceZone } from "@prismicio/react";
 import * as prismic from "@prismicio/client";
@@ -109,10 +108,12 @@ export default async function Page(props: { searchParams: SearchParams }) {
     // Passar os artigos e metadados de paginação para os componentes
     const componentsWithArticles = {
         ...components,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         featured_articles: (props: any) => {
             const FeaturedArticlesComponent = components.featured_articles;
             return <FeaturedArticlesComponent {...props} articles={featuredArticles} />;
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         articles_grid: (props: any) => {
             const ArticlesGridComponent = components.articles_grid;
             return <ArticlesGridComponent

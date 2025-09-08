@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileX, ArrowLeft, Search } from "lucide-react";
 import FloatingParticles from "@/components/layout/floating-particles";
+import Link from "next/link";
 
 /**
  * Not found page for individual news articles
@@ -37,17 +38,17 @@ export default function NotFound() {
                                 <div className="space-y-4">
                                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                         <Button size="lg" asChild className="group">
-                                            <a href="/junco-news">
+                                            <Link href="/junco-news">
                                                 <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
                                                 Voltar para Notícias
-                                            </a>
+                                            </Link>
                                         </Button>
 
                                         <Button variant="outline" size="lg" asChild className="group">
-                                            <a href="/">
+                                            <Link href="/">
                                                 <Search className="w-4 h-4 mr-2" />
                                                 Ir para Início
-                                            </a>
+                                            </Link>
                                         </Button>
                                     </div>
 

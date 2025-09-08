@@ -8,7 +8,9 @@ import { createClient } from "@/prismicio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShareButton } from "@/components/ui/share-button";
-import { Calendar, Clock, User, ArrowLeft, Bookmark } from "lucide-react";
+import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import type { NewsArticleDocument } from "@/../prismicio-types";
 
 type Params = Promise<{ uid: string }>;
 
@@ -36,7 +38,7 @@ export default async function NewsArticlePage(props: { params: Params }) {
     );
 }
 
-function NewsArticleContent({ page }: { page: any }) {
+function NewsArticleContent({ page }: { page: NewsArticleDocument }) {
     const publicationDate = page.data.publication_date ? asDate(page.data.publication_date) : null;
 
     return (
@@ -46,17 +48,17 @@ function NewsArticleContent({ page }: { page: any }) {
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex items-center justify-between">
                         <Button variant="ghost" asChild className="group">
-                            <a href="/junco-news" className="flex items-center space-x-2 ">
+                            <Link href="/junco-news" className="flex items-center space-x-2 ">
                                 <ArrowLeft className="w-4 h-4" />
                                 <span>Voltar para Notícias</span>
-                            </a>
+                            </Link>
                         </Button>
 
                         <div className="flex items-center space-x-2">
                             <ShareButton
                                 url={`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/junco-news/${page.uid}`}
-                                title={page.data.title?.[0]?.text || 'Artigo'}
-                                description={page.data.excerpt?.[0]?.text || ''}
+                                title={page.data.title?.[0] && 'text' in page.data.title[0] ? page.data.title[0].text : 'Artigo'}
+                                description={page.data.excerpt?.[0] && 'text' in page.data.excerpt[0] ? page.data.excerpt[0].text : ''}
                             />
                         </div>
                     </div>
@@ -206,7 +208,7 @@ function NewsArticleContent({ page }: { page: any }) {
                                             <em className="italic text-foreground">{children}</em>
                                         ),
                                         hyperlink: ({ children, node }) => {
-                                            const target = (node.data as any).target;
+                                            const target = (node.data as { target?: string }).target;
                                             return (
                                                 <a
                                                     href={node.data.url || "#"}
@@ -275,10 +277,10 @@ function NewsArticleContent({ page }: { page: any }) {
                             </div>
 
                             <Button variant="outline" size="sm" asChild>
-                                <a href="/junco-news">
+                                <Link href="/junco-news">
                                     <ArrowLeft className="w-4 h-4 mr-2" />
                                     Voltar para Notícias
-                                </a>
+                                </Link>
                             </Button>
                         </div>
                     </div>

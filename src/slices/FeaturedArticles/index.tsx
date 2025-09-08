@@ -1,20 +1,20 @@
 import * as React from "react";
 import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
-import { isFilled, asDate } from "@prismicio/client";
-import type { Content } from "@prismicio/client";
+import { asDate } from "@prismicio/client";
 import type { SliceComponentProps } from "@prismicio/react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import type { NewsArticleDocument, FeaturedArticlesSlice } from "@/../prismicio-types";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ShareButton } from "@/components/ui/share-button";
-import { Calendar, Clock, User, ArrowRight, TrendingUp } from "lucide-react";
+import { Calendar, Clock, User, ArrowRight } from "lucide-react";
 
 /**
  * Props for `FeaturedArticles`.
  */
-export type FeaturedArticlesProps = SliceComponentProps<any> & {
-    articles?: any[];
+export type FeaturedArticlesProps = SliceComponentProps<FeaturedArticlesSlice> & {
+    articles?: NewsArticleDocument[];
 };
 
 const getCategoryColor = (category: string) => {
@@ -29,11 +29,11 @@ const getCategoryColor = (category: string) => {
     return colors[category as keyof typeof colors] || "bg-muted text-muted-foreground border-border";
 };
 
-const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: number; isGrid?: boolean }) => {
+const ArticleCard = ({ article, index }: { article: NewsArticleDocument; index: number }) => {
     const isFeatured = index === 0;
 
     return (
-        <PrismicNextLink field={article}>
+        <PrismicNextLink document={article}>
             <Card
                 className={`group bg-card border transition-colors duration-200 hover:shadow-md h-full flex flex-col overflow-hidden cursor-pointer
         ${isFeatured ? 'lg:flex-row' : ''}
@@ -50,8 +50,8 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
 
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4">
-                        <Badge className={`${getCategoryColor(article.data.category)} border`}>
-                            {article.data.category}
+                        <Badge className={`${getCategoryColor(article.data.category || '')} border`}>
+                            {article.data.category || 'Sem categoria'}
                         </Badge>
                     </div>
 
@@ -105,8 +105,8 @@ const ArticleCard = ({ article, index, isGrid = true }: { article: any; index: n
                         <div className="flex items-center justify-center space-x-2">
                             <ShareButton
                                 url={`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/junco-news/${article.uid}`}
-                                title={article.data.title?.[0]?.text || 'Artigo'}
-                                description={article.data.excerpt?.[0]?.text || ''}
+                                title={article.data.title?.[0] && 'text' in article.data.title[0] ? article.data.title[0].text : 'Artigo'}
+                                description={article.data.excerpt?.[0] && 'text' in article.data.excerpt[0] ? article.data.excerpt[0].text : ''}
                                 size="sm"
                                 variant="ghost"
                             />
@@ -146,8 +146,8 @@ const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice, articles = [
 
                 // Se as ordens são iguais, usar data de publicação como desempate
                 // (mais recente primeiro)
-                const dateA = new Date(a.data.publication_date || a.first_publication_date);
-                const dateB = new Date(b.data.publication_date || b.first_publication_date);
+                const dateA = asDate(a.data.publication_date) || new Date(a.first_publication_date);
+                const dateB = asDate(b.data.publication_date) || new Date(b.first_publication_date);
                 return dateB.getTime() - dateA.getTime();
             }
 
@@ -156,8 +156,8 @@ const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice, articles = [
             if (orderA === 'none' && orderB !== 'none') return 1;
 
             // Se nenhum tem ordem definida, ordenar por data de publicação
-            const dateA = new Date(a.data.publication_date || a.first_publication_date);
-            const dateB = new Date(b.data.publication_date || b.first_publication_date);
+            const dateA = asDate(a.data.publication_date) || new Date(a.first_publication_date);
+            const dateB = asDate(b.data.publication_date) || new Date(b.first_publication_date);
             return dateB.getTime() - dateA.getTime();
         })
         .slice(0, 4); // Limitar a 4 artigos
@@ -194,7 +194,6 @@ const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice, articles = [
                                     key={featuredArticles[0].id}
                                     article={featuredArticles[0]}
                                     index={0}
-                                    isGrid={false}
                                 />
                             </div>
 
@@ -206,7 +205,6 @@ const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice, articles = [
                                             key={article.id}
                                             article={article}
                                             index={index + 1}
-                                            isGrid={false}
                                         />
                                     ))}
                                 </div>
@@ -216,7 +214,7 @@ const FeaturedArticles: React.FC<FeaturedArticlesProps> = ({ slice, articles = [
                         <div className="text-center py-12">
                             <p className="text-muted-foreground">
                                 Nenhum artigo em destaque encontrado.
-                                Configure artigos com "Artigo em Destaque" = Sim e defina a "Ordem de Destaque" no Prismic.
+                                Configure artigos com &quot;Artigo em Destaque&quot; = Sim e defina a &quot;Ordem de Destaque&quot; no Prismic.
                             </p>
                         </div>
                     )}

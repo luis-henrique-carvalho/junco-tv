@@ -4,9 +4,9 @@ import * as React from "react";
 import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { isFilled, asDate } from "@prismicio/client";
-import type { Content } from "@prismicio/client";
 import type { SliceComponentProps } from "@prismicio/react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import type { NewsArticleDocument, ArticlesGridSlice } from "@/../prismicio-types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,13 +22,13 @@ import {
     PaginationPrevious,
     PaginationEllipsis
 } from "@/components/ui/pagination";
-import { Calendar, Clock, User, Search, Filter, SortAsc, SortDesc, Grid, List } from "lucide-react";
+import { Calendar, Clock, User, Search, Filter, SortAsc, Grid, List } from "lucide-react";
 
 /**
  * Props for `ArticlesGrid`.
  */
-export type ArticlesGridProps = SliceComponentProps<any> & {
-    articles?: any[];
+export type ArticlesGridProps = SliceComponentProps<ArticlesGridSlice> & {
+    articles?: NewsArticleDocument[];
     pagination?: {
         currentPage: number;
         totalPages: number;
@@ -59,10 +59,10 @@ const getCategoryColor = (category: string) => {
     return colors[category as keyof typeof colors] || "bg-muted text-muted-foreground border-border";
 };
 
-const ArticleCard = ({ article, index, viewMode }: { article: any; index: number; viewMode: 'grid' | 'list' }) => {
+const ArticleCard = ({ article, index, viewMode }: { article: NewsArticleDocument; index: number; viewMode: 'grid' | 'list' }) => {
     if (viewMode === 'list') {
         return (
-            <PrismicNextLink field={article}>
+            <PrismicNextLink document={article}>
                 <Card
                     className="group bg-gradient-to-br from-card/90 via-card/70 to-primary/5 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 border border-primary/20 hover:border-primary/40 cursor-pointer"
                     style={{
@@ -84,8 +84,8 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                             {/* Content */}
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-start justify-between mb-3">
-                                    <Badge className={`${getCategoryColor(article.data.category)} border`}>
-                                        {article.data.category}
+                                    <Badge className={`${getCategoryColor(article.data.category || '')} border`}>
+                                        {article.data.category || 'Sem categoria'}
                                     </Badge>
                                     <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                                         <div className="flex items-center space-x-1">
@@ -115,8 +115,8 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                                     <div className="flex items-center space-x-2">
                                         <ShareButton
                                             url={`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/junco-news/${article.uid}`}
-                                            title={article.data.title?.[0]?.text || 'Artigo'}
-                                            description={article.data.excerpt?.[0]?.text || ''}
+                                            title={article.data.title?.[0] && 'text' in article.data.title[0] ? article.data.title[0].text : 'Artigo'}
+                                            description={article.data.excerpt?.[0] && 'text' in article.data.excerpt[0] ? article.data.excerpt[0].text : ''}
                                             size="sm"
                                             variant="ghost"
                                         />
@@ -134,7 +134,7 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
     }
 
     return (
-        <PrismicNextLink field={article}>
+        <PrismicNextLink document={article}>
             <Card
                 className="group bg-card border transition-colors duration-200 hover:shadow-md h-full flex flex-col overflow-hidden cursor-pointer"
             >
@@ -146,8 +146,8 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                     />
 
                     <div className="absolute top-4 left-4">
-                        <Badge className={`${getCategoryColor(article.data.category)} border`}>
-                            {article.data.category}
+                        <Badge className={`${getCategoryColor(article.data.category || '')} border`}>
+                            {article.data.category || 'Sem categoria'}
                         </Badge>
                     </div>
                 </div>
@@ -184,8 +184,8 @@ const ArticleCard = ({ article, index, viewMode }: { article: any; index: number
                         <div className="flex items-center justify-center space-x-2">
                             <ShareButton
                                 url={`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/junco-news/${article.uid}`}
-                                title={article.data.title?.[0]?.text || 'Artigo'}
-                                description={article.data.excerpt?.[0]?.text || ''}
+                                title={article.data.title?.[0] && 'text' in article.data.title[0] ? article.data.title[0].text : 'Artigo'}
+                                description={article.data.excerpt?.[0] && 'text' in article.data.excerpt[0] ? article.data.excerpt[0].text : ''}
                                 size="sm"
                                 variant="ghost"
                             />
@@ -217,9 +217,9 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice, articles = [], pagin
     // Get available categories from slice or fallback to mockup
     const availableCategories = React.useMemo(() => {
         const sliceCategories = isFilled.group(primary.filter_categories) ?
-            primary.filter_categories.map((cat: any) => ({
-                name: cat.category_name,
-                slug: cat.category_slug
+            primary.filter_categories.map((cat) => ({
+                name: cat.category_name || '',
+                slug: cat.category_slug || ''
             })) : [];
 
         // Fallback categories if none defined in slice
@@ -343,7 +343,7 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice, articles = [], pagin
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="all">Todas as Categorias</SelectItem>
-                                            {availableCategories.map((category: any) => (
+                                            {availableCategories.map((category: { name: string; slug: string }) => (
                                                 <SelectItem key={category.slug} value={category.name}>
                                                     {category.name}
                                                 </SelectItem>

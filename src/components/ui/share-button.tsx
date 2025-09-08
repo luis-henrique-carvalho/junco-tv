@@ -34,7 +34,7 @@ export function ShareButton({
         try {
             await navigator.clipboard.writeText(url);
             toast.success("Link copiado para a área de transferência!");
-        } catch (err) {
+        } catch {
             const textArea = document.createElement("textarea");
             textArea.value = url;
             document.body.appendChild(textArea);
@@ -49,8 +49,6 @@ export function ShareButton({
     const handleShare = (platform: string) => {
         const encodedUrl = encodeURIComponent(url);
         const encodedTitle = encodeURIComponent(title);
-        const encodedDescription = encodeURIComponent(description);
-
         let shareUrl = "";
 
         switch (platform) {
@@ -83,7 +81,7 @@ export function ShareButton({
                     url,
                 });
                 setIsOpen(false);
-            } catch (err) {
+            } catch {
                 // Usuário cancelou o compartilhamento
             }
         } else {
