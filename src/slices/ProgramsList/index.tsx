@@ -107,8 +107,8 @@ const ProgramsList: React.FC<ProgramsListProps> = ({ slice }) => {
         {/* Programs Grid */}
         {isFilled.group(primary.program) && primary.program.length > 0 && (
           <div className={`w-full max-w-none px-4 sm:px-8 lg:px-12 xl:px-16 ${primary.program.length === 1
-              ? "flex justify-center"
-              : "grid gap-8 lg:grid-cols-2"
+            ? "flex justify-center"
+            : "grid gap-8 lg:grid-cols-2"
             }`}>
             {primary.program.map((programItem, index) => (
               <ProgramCard
