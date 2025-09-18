@@ -26,12 +26,12 @@ const ProgramDescription: React.FC<ProgramDescriptionProps> = ({ description, va
 
     return (
         <CardContent className={`${isSingleVariant ? "pb-4 lg:pb-6 px-0" : "pb-6"} flex-1`}>
-            <div className="text-muted-foreground/90 group-hover:text-muted-foreground transition-colors duration-300">
+            <div className={`${isSingleVariant ? "text-muted-foreground/90" : "text-muted-foreground/90"} group-hover:text-muted-foreground transition-colors duration-300`}>
                 <PrismicRichText
                     field={description}
                     components={{
                         paragraph: ({ children }: { children: React.ReactNode }) => (
-                            <p className={`${isSingleVariant ? "text-base lg:text-lg xl:text-xl" : "text-base lg:text-lg"} leading-relaxed ${isSingleVariant ? "line-clamp-6 lg:line-clamp-8" : "line-clamp-5 lg:line-clamp-6"} mb-3`}>{children}</p>
+                            <p className={`${isSingleVariant ? "text-base lg:text-lg xl:text-xl" : "text-base lg:text-lg"} leading-relaxed ${isSingleVariant ? "line-clamp-4 lg:line-clamp-6" : "line-clamp-5 lg:line-clamp-6"} mb-3`}>{children}</p>
                         ),
                         heading1: ({ children }: { children: React.ReactNode }) => (
                             <h1 className="text-lg lg:text-xl font-bold text-foreground mb-3">{children}</h1>

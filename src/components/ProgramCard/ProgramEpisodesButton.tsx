@@ -28,13 +28,13 @@ const ProgramEpisodesButton: React.FC<ProgramEpisodesButtonProps> = ({
                 <Button
                     variant="outline"
                     size="lg"
-                    className={`w-full group/btn relative overflow-hidden border-2 border-primary/40 bg-transparent hover:bg-transparent hover:border-primary/70 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl hover:shadow-primary/25 ${isSingleVariant ? "py-4 lg:py-6" : "py-6"}`}
+                    className={`w-full group/btn relative overflow-hidden ${isSingleVariant ? "h-12 lg:h-14" : "h-12"} bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/5 hover:from-primary/10 hover:via-secondary/10 hover:to-primary/10 border-2 border-primary/30 hover:border-primary/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/25`}
                 >
-                    {/* Button background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/15 via-secondary/8 to-primary/15 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
+                    {/* Animated background gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/5 to-accent/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
 
-                    {/* Animated border effect */}
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/20 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 animate-pulse" />
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
                     <span className={`relative z-10 font-bold ${isSingleVariant ? "text-base lg:text-lg" : "text-base"} text-foreground group-hover/btn:text-primary transition-colors duration-300 flex items-center justify-center gap-3`}>
                         {episodesLink.text || buttonText}

@@ -46,6 +46,9 @@ const ProgramImage: React.FC<ProgramImageProps> = ({
                     </span>
                 </div>
             </div>
+
+            {/* Shimmer effect overlay */}
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100" />
         </div>
     );
 };

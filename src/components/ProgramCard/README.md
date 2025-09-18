@@ -49,21 +49,28 @@ import { ProgramCard } from "@/components/ProgramCard";
 
 ### `variant="single"`
 
-- **Layout horizontal** com imagem à esquerda e conteúdo à direita
+- **Layout horizontal premium** com design moderno e atrativo
 - Altura mínima: 500px (lg: 600px)
-- **Imagem**: Ocupa 50% da largura, altura total do card
-- **Título**: text-2xl (lg: text-3xl, xl: text-4xl)
-- **Descrição**: text-base (lg: text-lg, xl: text-xl) com line-clamp-6/8
-- **Botão**: py-4 (lg: py-6) com text-base (lg: text-lg)
+- **Seção da Imagem (2/5 da largura)**:
+  - Background com gradientes radiais e padrões artísticos
+  - Imagem grande: w-48 h-48 (lg: w-56 h-56, xl: w-64 h-64)
+  - Efeitos de glow, blur e elementos flutuantes animados
+  - Ring com sombra e badge de tipo de programa
+- **Seção do Conteúdo (3/5 da largura)**:
+  - Título: text-2xl (lg: text-3xl, xl: text-4xl) com gradiente
+  - Descrição: text-base (lg: text-lg, xl: text-xl) com line-clamp-4/6
+  - Botão: h-12 (lg: h-14) com efeitos shimmer e gradientes
 - **Responsivo**: Layout vertical em mobile, horizontal em desktop
 
 ## Melhorias de UX na Variante Single
 
-### 🎨 **Design Aprimorado**
+### 🎨 **Design Premium Aprimorado**
 
-- **Layout horizontal** que aproveita melhor o espaço da tela
-- **Imagem em destaque** ocupando 50% da largura
-- **Hierarquia visual clara** com espaçamento otimizado
+- **Layout horizontal premium** com seções bem definidas
+- **Seção da imagem** com background artístico e efeitos visuais
+- **Imagem em destaque** com glow effects e animações
+- **Hierarquia visual clara** com tipografia gradiente
+- **Elementos flutuantes** com animações sutis
 - **Transições suaves** entre breakpoints responsivos
 
 ### 📱 **Responsividade Inteligente**
@@ -72,11 +79,13 @@ import { ProgramCard } from "@/components/ProgramCard";
 - **Desktop**: Layout horizontal (imagem à esquerda)
 - **Breakpoint**: lg (1024px) para mudança de layout
 
-### 🎯 **Experiência do Usuário**
+### 🎯 **Experiência do Usuário Premium**
 
-- **Leitura otimizada** com tipografia balanceada
-- **Call-to-action destacado** na parte inferior
-- **Efeitos hover** mantidos em ambos os layouts
+- **Leitura otimizada** com tipografia gradiente e hierarquia clara
+- **Imagem impactante** com efeitos visuais e animações
+- **Botão moderno** com efeitos shimmer e gradientes
+- **Background artístico** com gradientes radiais
+- **Elementos interativos** com feedback visual avançado
 - **Acessibilidade preservada** em todas as variantes
 
 ## Lógica Automática no ProgramsList
