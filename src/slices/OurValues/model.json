@@ -1,0 +1,66 @@
+{
+    "id": "our_values",
+    "type": "SharedSlice",
+    "name": "OurValues",
+    "description": "Our Values section with value cards",
+    "variations": [
+        {
+            "id": "default",
+            "name": "Default",
+            "description": "Our Values section with value cards",
+            "version": "initial",
+            "imageUrl": "",
+            "docURL": "...",
+            "primary": {
+                "title": {
+                    "type": "Text",
+                    "config": {
+                        "label": "Title",
+                        "placeholder": "Nossos Valores"
+                    }
+                },
+                "description": {
+                    "type": "StructuredText",
+                    "config": {
+                        "multi": "paragraph,strong,em,hyperlink",
+                        "label": "Description",
+                        "placeholder": "Uma breve introdução sobre nossos valores..."
+                    }
+                },
+                "value_item": {
+                    "type": "Group",
+                    "config": {
+                        "label": "Value Items",
+                        "repeat": true,
+                        "fields": {
+                            "icon": {
+                                "type": "Image",
+                                "config": {
+                                    "label": "Icon",
+                                    "constraint": {},
+                                    "thumbnails": []
+                                }
+                            },
+                            "title": {
+                                "type": "Text",
+                                "config": {
+                                    "label": "Title",
+                                    "placeholder": "Título do valor"
+                                }
+                            },
+                            "description": {
+                                "type": "StructuredText",
+                                "config": {
+                                    "multi": "paragraph,strong,em",
+                                    "label": "Description",
+                                    "placeholder": "Descrição do valor..."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "items": {}
+        }
+    ]
+}

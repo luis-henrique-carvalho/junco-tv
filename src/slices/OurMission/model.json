@@ -1,0 +1,88 @@
+{
+  "id": "our_mission",
+  "type": "SharedSlice",
+  "name": "OurMission",
+  "description": "Our Mission section with mission, vision and goals",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Our Mission section with mission, vision and goals",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Nossa Missão"
+          }
+        },
+        "mission_title": {
+          "type": "Text",
+          "config": {
+            "label": "Mission Title",
+            "placeholder": "Missão"
+          }
+        },
+        "mission_description": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em,hyperlink",
+            "label": "Mission Description",
+            "placeholder": "Descrição da missão..."
+          }
+        },
+        "vision_title": {
+          "type": "Text",
+          "config": {
+            "label": "Vision Title",
+            "placeholder": "Visão"
+          }
+        },
+        "vision_description": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em,hyperlink",
+            "label": "Vision Description",
+            "placeholder": "Descrição da visão..."
+          }
+        },
+        "goal_item": {
+          "type": "Group",
+          "config": {
+            "label": "Goal Items",
+            "repeat": true,
+            "fields": {
+              "icon": {
+                "type": "Image",
+                "config": {
+                  "label": "Icon",
+                  "constraint": {},
+                  "thumbnails": []
+                }
+              },
+              "title": {
+                "type": "Text",
+                "config": {
+                  "label": "Title",
+                  "placeholder": "Título do objetivo"
+                }
+              },
+              "description": {
+                "type": "StructuredText",
+                "config": {
+                  "multi": "paragraph,strong,em",
+                  "label": "Description",
+                  "placeholder": "Descrição do objetivo..."
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

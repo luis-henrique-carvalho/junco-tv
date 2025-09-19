@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Card } from "@/components/ui/card";
 import { isFilled } from "@prismicio/client";
+import { PrismicNextImage } from "@prismicio/next";
 import type { ProgramsListSliceDefaultPrimaryProgramItem } from "../../../prismicio-types";
 
 import ProgramImage from "./ProgramImage";
@@ -59,10 +60,10 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
                                 <div className="relative">
                                     {isFilled.image(program.program_image) && (
                                         <div className="w-48 h-48 lg:w-56 lg:h-56 xl:w-64 xl:h-64 rounded-2xl overflow-hidden ring-4 ring-white/20 shadow-2xl">
-                                            <img
-                                                src={program.program_image.url || ""}
-                                                alt={program.program_image.alt || ""}
+                                            <PrismicNextImage
+                                                field={program.program_image}
                                                 className="w-full h-full object-cover"
+                                                alt=""
                                             />
                                         </div>
                                     )}

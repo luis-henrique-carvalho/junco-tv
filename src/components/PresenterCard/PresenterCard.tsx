@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Card } from "@/components/ui/card";
 import { isFilled } from "@prismicio/client";
+import { PrismicNextImage } from "@prismicio/next";
 import type { PresentersTeamSliceDefaultPrimaryPresentersItem } from "../../../prismicio-types";
 
 import PresenterAvatar from "./PresenterAvatar";
@@ -54,10 +55,10 @@ const PresenterCard: React.FC<PresenterCardProps> = ({
                                 <div className="relative">
                                     {isFilled.image(presenter.presenter_photo) && (
                                         <div className="w-32 h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 rounded-full overflow-hidden ring-4 ring-white/20 shadow-2xl">
-                                            <img
-                                                src={presenter.presenter_photo.url}
-                                                alt={presenter.presenter_photo.alt || ""}
+                                            <PrismicNextImage
+                                                field={presenter.presenter_photo}
                                                 className="w-full h-full object-cover"
+                                                alt=""
                                             />
                                         </div>
                                     )}

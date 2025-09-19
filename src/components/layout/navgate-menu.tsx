@@ -17,19 +17,15 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/layout/theme-toggle"
 
-const programs: { title: string; href: string; description: string }[] = [
+// TODO: change to prismic custom type
+const programs: { title: string; href: string; description: string, target: React.HTMLAttributeAnchorTarget | undefined }[] = [
     {
         title: "Junco Cast",
-        href: "/programs/junco-cast",
+        href: "https://www.youtube.com/@redejuncotv",
         description:
             "A podcast about the Junco project.",
-    },
-    {
-        title: "SEALBA AgroCast",
-        href: "/programs/sealba-agrocast",
-        description:
-            "A podcast about the SEALBA project.",
-    },
+        target: "_blank",
+    }
 ]
 
 export function NavigationMenuDemo() {
@@ -59,6 +55,7 @@ export function NavigationMenuDemo() {
                                             key={component.title}
                                             title={component.title}
                                             href={component.href}
+                                            target={component.target}
                                         >
                                             {component.description}
                                         </ListItem>
@@ -74,11 +71,6 @@ export function NavigationMenuDemo() {
                         <NavigationMenuItem>
                             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                 <Link href="/about">Sobre nós</Link>
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
-                        <NavigationMenuItem>
-                            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                <Link href="/contact">Contato</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                     </NavigationMenuList>
@@ -183,12 +175,13 @@ function ListItem({
     title,
     children,
     href,
+    target,
     ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
+}: React.ComponentPropsWithoutRef<"li"> & { href: string; target?: React.HTMLAttributeAnchorTarget }) {
     return (
         <li {...props}>
             <NavigationMenuLink asChild>
-                <Link href={href}>
+                <Link href={href} target={target}>
                     <div className="text-sm leading-none font-medium">{title}</div>
                     <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
                         {children}

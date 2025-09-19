@@ -40,7 +40,7 @@ const PresenterBio: React.FC<PresenterBioProps> = ({ bio, variant = "default" })
                         heading3: ({ children }: { children: React.ReactNode }) => (
                             <h3 className={`${isSingleVariant ? "text-sm lg:text-base" : "text-xs"} font-bold text-foreground mb-1`}>{children}</h3>
                         ),
-                        hyperlink: ({ children, node }: { children: React.ReactNode; node: any }) => (
+                        hyperlink: ({ children, node }: { children: React.ReactNode; node: { data: { url?: string; target?: string } } }) => (
                             <a
                                 href={node.data.url || "#"}
                                 className="text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-colors duration-200"

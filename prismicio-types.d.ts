@@ -69,6 +69,72 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+type AboutDocumentDataSlicesSlice =
+  | ContactSectionSlice
+  | OurValuesSlice
+  | OurMissionSlice
+  | OurStorySlice
+  | HeroAboutSlice;
+
+/**
+ * Content for About documents
+ */
+interface AboutDocumentData {
+  /**
+   * Slice Zone field in *About*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice> /**
+   * Meta Title field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: about.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: about.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *About*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * About document from Prismic
+ *
+ * - **API ID**: `about`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AboutDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<AboutDocumentData>, "about", Lang>;
+
 type HomePageDocumentDataSlicesSlice =
   | PresentersTeamSlice
   | ProgramsListSlice
@@ -397,6 +463,7 @@ export type NewsArticleDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | AboutDocument
   | HomePageDocument
   | JuncoNewsDocument
   | NewsArticleDocument;
@@ -531,6 +598,126 @@ export type ArticlesGridSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *ContactSection → Default → Primary → Social Links*
+ */
+export interface ContactSectionSliceDefaultPrimarySocialLinksItem {
+  /**
+   * Platform field in *ContactSection → Default → Primary → Social Links*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Escolha a plataforma
+   * - **API ID Path**: contact_section.default.primary.social_links[].platform
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  platform: prismic.SelectField<
+    | "Instagram"
+    | "Twitter"
+    | "LinkedIn"
+    | "Facebook"
+    | "YouTube"
+    | "TikTok"
+    | "Website"
+  >;
+
+  /**
+   * URL field in *ContactSection → Default → Primary → Social Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: URL da rede social
+   * - **API ID Path**: contact_section.default.primary.social_links[].url
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  url: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+/**
+ * Primary content in *ContactSection → Default → Primary*
+ */
+export interface ContactSectionSliceDefaultPrimary {
+  /**
+   * Title field in *ContactSection → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Entre em Contato
+   * - **API ID Path**: contact_section.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *ContactSection → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Entre em contato conosco...
+   * - **API ID Path**: contact_section.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Email field in *ContactSection → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: contato@junco.tv
+   * - **API ID Path**: contact_section.default.primary.email
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  email: prismic.KeyTextField;
+
+  /**
+   * Phone field in *ContactSection → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: +55 (11) 99999-9999
+   * - **API ID Path**: contact_section.default.primary.phone
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  phone: prismic.KeyTextField;
+
+  /**
+   * Social Links field in *ContactSection → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contact_section.default.primary.social_links[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  social_links: prismic.GroupField<
+    Simplify<ContactSectionSliceDefaultPrimarySocialLinksItem>
+  >;
+}
+
+/**
+ * Default variation for ContactSection Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Contact section with contact information and form
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ContactSectionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ContactSectionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ContactSection*
+ */
+type ContactSectionSliceVariation = ContactSectionSliceDefault;
+
+/**
+ * ContactSection Shared Slice
+ *
+ * - **API ID**: `contact_section`
+ * - **Description**: Contact section with contact information and form
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ContactSectionSlice = prismic.SharedSlice<
+  "contact_section",
+  ContactSectionSliceVariation
+>;
+
+/**
  * Primary content in *FeaturedArticles → Default → Primary*
  */
 export interface FeaturedArticlesSliceDefaultPrimary {
@@ -553,44 +740,13 @@ export interface FeaturedArticlesSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   section_description: prismic.RichTextField;
-
-  /**
-   * Max Articles to Show field in *FeaturedArticles → Default → Primary*
-   *
-   * - **Field Type**: Number
-   * - **Placeholder**: 6
-   * - **API ID Path**: featured_articles.default.primary.max_articles
-   * - **Documentation**: https://prismic.io/docs/fields/number
-   */
-  max_articles: prismic.NumberField;
-
-  /**
-   * Show Category Filter field in *FeaturedArticles → Default → Primary*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: false
-   * - **API ID Path**: featured_articles.default.primary.show_category_filter
-   * - **Documentation**: https://prismic.io/docs/fields/boolean
-   */
-  show_category_filter: prismic.BooleanField;
-
-  /**
-   * Layout Style field in *FeaturedArticles → Default → Primary*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: Escolha o estilo
-   * - **API ID Path**: featured_articles.default.primary.layout_style
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  layout_style: prismic.SelectField<"Grid" | "Carousel" | "List">;
 }
 
 /**
  * Default variation for FeaturedArticles Slice
  *
  * - **API ID**: `default`
- * - **Description**: Featured articles grid with customizable layout
+ * - **Description**: Featured articles section showing 4 articles in controlled order
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type FeaturedArticlesSliceDefault = prismic.SharedSliceVariation<
@@ -608,12 +764,77 @@ type FeaturedArticlesSliceVariation = FeaturedArticlesSliceDefault;
  * FeaturedArticles Shared Slice
  *
  * - **API ID**: `featured_articles`
- * - **Description**: Section displaying featured news articles
+ * - **Description**: Section displaying 4 featured news articles with controlled order
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type FeaturedArticlesSlice = prismic.SharedSlice<
   "featured_articles",
   FeaturedArticlesSliceVariation
+>;
+
+/**
+ * Primary content in *HeroAbout → Default → Primary*
+ */
+export interface HeroAboutSliceDefaultPrimary {
+  /**
+   * Title field in *HeroAbout → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Sobre Nós
+   * - **API ID Path**: hero_about.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Subtitle field in *HeroAbout → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Conheça nossa história e valores
+   * - **API ID Path**: hero_about.default.primary.subtitle
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  subtitle: prismic.KeyTextField;
+
+  /**
+   * Description field in *HeroAbout → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Uma breve descrição sobre a empresa...
+   * - **API ID Path**: hero_about.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Default variation for HeroAbout Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Hero section with title, subtitle, description and background image
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroAboutSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroAboutSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeroAbout*
+ */
+type HeroAboutSliceVariation = HeroAboutSliceDefault;
+
+/**
+ * HeroAbout Shared Slice
+ *
+ * - **API ID**: `hero_about`
+ * - **Description**: Hero section for About page with title, subtitle, description and background image
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type HeroAboutSlice = prismic.SharedSlice<
+  "hero_about",
+  HeroAboutSliceVariation
 >;
 
 /**
@@ -805,6 +1026,362 @@ type HeroStatsWithActionsSliceVariation = HeroStatsWithActionsSliceDefault;
 export type HeroStatsWithActionsSlice = prismic.SharedSlice<
   "hero_stats_with_actions",
   HeroStatsWithActionsSliceVariation
+>;
+
+/**
+ * Item in *OurMission → Default → Primary → Goal Items*
+ */
+export interface OurMissionSliceDefaultPrimaryGoalItemItem {
+  /**
+   * Icon field in *OurMission → Default → Primary → Goal Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_mission.default.primary.goal_item[].icon
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Title field in *OurMission → Default → Primary → Goal Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Título do objetivo
+   * - **API ID Path**: our_mission.default.primary.goal_item[].title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *OurMission → Default → Primary → Goal Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descrição do objetivo...
+   * - **API ID Path**: our_mission.default.primary.goal_item[].description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *OurMission → Default → Primary*
+ */
+export interface OurMissionSliceDefaultPrimary {
+  /**
+   * Title field in *OurMission → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Nossa Missão
+   * - **API ID Path**: our_mission.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Mission Title field in *OurMission → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Missão
+   * - **API ID Path**: our_mission.default.primary.mission_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  mission_title: prismic.KeyTextField;
+
+  /**
+   * Mission Description field in *OurMission → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descrição da missão...
+   * - **API ID Path**: our_mission.default.primary.mission_description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  mission_description: prismic.RichTextField;
+
+  /**
+   * Vision Title field in *OurMission → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Visão
+   * - **API ID Path**: our_mission.default.primary.vision_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  vision_title: prismic.KeyTextField;
+
+  /**
+   * Vision Description field in *OurMission → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descrição da visão...
+   * - **API ID Path**: our_mission.default.primary.vision_description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  vision_description: prismic.RichTextField;
+
+  /**
+   * Goal Items field in *OurMission → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_mission.default.primary.goal_item[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  goal_item: prismic.GroupField<
+    Simplify<OurMissionSliceDefaultPrimaryGoalItemItem>
+  >;
+}
+
+/**
+ * Default variation for OurMission Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Our Mission section with mission, vision and goals
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurMissionSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<OurMissionSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *OurMission*
+ */
+type OurMissionSliceVariation = OurMissionSliceDefault;
+
+/**
+ * OurMission Shared Slice
+ *
+ * - **API ID**: `our_mission`
+ * - **Description**: Our Mission section with mission, vision and goals
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurMissionSlice = prismic.SharedSlice<
+  "our_mission",
+  OurMissionSliceVariation
+>;
+
+/**
+ * Item in *OurStory → Default → Primary → Timeline Items*
+ */
+export interface OurStorySliceDefaultPrimaryTimelineItemItem {
+  /**
+   * Year field in *OurStory → Default → Primary → Timeline Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: 2020
+   * - **API ID Path**: our_story.default.primary.timeline_item[].year
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  year: prismic.KeyTextField;
+
+  /**
+   * Title field in *OurStory → Default → Primary → Timeline Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Título do marco
+   * - **API ID Path**: our_story.default.primary.timeline_item[].title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *OurStory → Default → Primary → Timeline Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descrição do marco histórico...
+   * - **API ID Path**: our_story.default.primary.timeline_item[].description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Image field in *OurStory → Default → Primary → Timeline Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story.default.primary.timeline_item[].image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *OurStory → Default → Primary*
+ */
+export interface OurStorySliceDefaultPrimary {
+  /**
+   * Title field in *OurStory → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Nossa História
+   * - **API ID Path**: our_story.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *OurStory → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Uma breve introdução sobre nossa história...
+   * - **API ID Path**: our_story.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Main Image field in *OurStory → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story.default.primary.main_image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  main_image: prismic.ImageField<never>;
+
+  /**
+   * Timeline Items field in *OurStory → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_story.default.primary.timeline_item[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  timeline_item: prismic.GroupField<
+    Simplify<OurStorySliceDefaultPrimaryTimelineItemItem>
+  >;
+}
+
+/**
+ * Default variation for OurStory Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Our Story section with timeline and milestones
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurStorySliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<OurStorySliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *OurStory*
+ */
+type OurStorySliceVariation = OurStorySliceDefault;
+
+/**
+ * OurStory Shared Slice
+ *
+ * - **API ID**: `our_story`
+ * - **Description**: Our Story section with timeline and milestones
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurStorySlice = prismic.SharedSlice<
+  "our_story",
+  OurStorySliceVariation
+>;
+
+/**
+ * Item in *OurValues → Default → Primary → Value Items*
+ */
+export interface OurValuesSliceDefaultPrimaryValueItemItem {
+  /**
+   * Icon field in *OurValues → Default → Primary → Value Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_values.default.primary.value_item[].icon
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Title field in *OurValues → Default → Primary → Value Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Título do valor
+   * - **API ID Path**: our_values.default.primary.value_item[].title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *OurValues → Default → Primary → Value Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Descrição do valor...
+   * - **API ID Path**: our_values.default.primary.value_item[].description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *OurValues → Default → Primary*
+ */
+export interface OurValuesSliceDefaultPrimary {
+  /**
+   * Title field in *OurValues → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Nossos Valores
+   * - **API ID Path**: our_values.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Description field in *OurValues → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Uma breve introdução sobre nossos valores...
+   * - **API ID Path**: our_values.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Value Items field in *OurValues → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: our_values.default.primary.value_item[]
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  value_item: prismic.GroupField<
+    Simplify<OurValuesSliceDefaultPrimaryValueItemItem>
+  >;
+}
+
+/**
+ * Default variation for OurValues Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Our Values section with value cards
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurValuesSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<OurValuesSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *OurValues*
+ */
+type OurValuesSliceVariation = OurValuesSliceDefault;
+
+/**
+ * OurValues Shared Slice
+ *
+ * - **API ID**: `our_values`
+ * - **Description**: Our Values section with value cards
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type OurValuesSlice = prismic.SharedSlice<
+  "our_values",
+  OurValuesSliceVariation
 >;
 
 /**
@@ -1109,6 +1686,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AboutDocument,
+      AboutDocumentData,
+      AboutDocumentDataSlicesSlice,
       HomePageDocument,
       HomePageDocumentData,
       HomePageDocumentDataSlicesSlice,
@@ -1123,16 +1703,40 @@ declare module "@prismicio/client" {
       ArticlesGridSliceDefaultPrimary,
       ArticlesGridSliceVariation,
       ArticlesGridSliceDefault,
+      ContactSectionSlice,
+      ContactSectionSliceDefaultPrimarySocialLinksItem,
+      ContactSectionSliceDefaultPrimary,
+      ContactSectionSliceVariation,
+      ContactSectionSliceDefault,
       FeaturedArticlesSlice,
       FeaturedArticlesSliceDefaultPrimary,
       FeaturedArticlesSliceVariation,
       FeaturedArticlesSliceDefault,
+      HeroAboutSlice,
+      HeroAboutSliceDefaultPrimary,
+      HeroAboutSliceVariation,
+      HeroAboutSliceDefault,
       HeroStatsWithActionsSlice,
       HeroStatsWithActionsSliceDefaultPrimaryStatsItem,
       HeroStatsWithActionsSliceDefaultPrimaryFeaturesItem,
       HeroStatsWithActionsSliceDefaultPrimary,
       HeroStatsWithActionsSliceVariation,
       HeroStatsWithActionsSliceDefault,
+      OurMissionSlice,
+      OurMissionSliceDefaultPrimaryGoalItemItem,
+      OurMissionSliceDefaultPrimary,
+      OurMissionSliceVariation,
+      OurMissionSliceDefault,
+      OurStorySlice,
+      OurStorySliceDefaultPrimaryTimelineItemItem,
+      OurStorySliceDefaultPrimary,
+      OurStorySliceVariation,
+      OurStorySliceDefault,
+      OurValuesSlice,
+      OurValuesSliceDefaultPrimaryValueItemItem,
+      OurValuesSliceDefaultPrimary,
+      OurValuesSliceVariation,
+      OurValuesSliceDefault,
       PresentersTeamSlice,
       PresentersTeamSliceDefaultPrimaryPresentersPresenterSocialLinksItem,
       PresentersTeamSliceDefaultPrimaryPresentersItem,

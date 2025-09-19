@@ -47,6 +47,7 @@ const PresenterSocial: React.FC<PresenterSocialProps> = ({ socialLinks, variant 
     return (
         <CardFooter className={`${isSingleVariant ? "justify-start pt-0 pb-0 px-0" : "justify-center pt-4 pb-2 flex-shrink-0"}`}>
             <div className={`flex ${isSingleVariant ? "gap-3" : "gap-3"}`}>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {socialLinks.map((socialLink: any, socialIndex: number) => (
                     isFilled.link(socialLink.social_url) && isFilled.select(socialLink.social_platform) && (
                         <PrismicNextLink

@@ -1,0 +1,83 @@
+{
+  "id": "contact_section",
+  "type": "SharedSlice",
+  "name": "ContactSection",
+  "description": "Contact section with contact information and form",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Contact section with contact information and form",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Entre em Contato"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em,hyperlink",
+            "label": "Description",
+            "placeholder": "Entre em contato conosco..."
+          }
+        },
+        "email": {
+          "type": "Text",
+          "config": {
+            "label": "Email",
+            "placeholder": "contato@junco.tv"
+          }
+        },
+        "phone": {
+          "type": "Text",
+          "config": {
+            "label": "Phone",
+            "placeholder": "+55 (11) 99999-9999"
+          }
+        },
+        "social_links": {
+          "type": "Group",
+          "config": {
+            "label": "Social Links",
+            "repeat": true,
+            "fields": {
+              "platform": {
+                "type": "Select",
+                "config": {
+                  "label": "Platform",
+                  "placeholder": "Escolha a plataforma",
+                  "options": [
+                    "Instagram",
+                    "Twitter",
+                    "LinkedIn",
+                    "Facebook",
+                    "YouTube",
+                    "TikTok",
+                    "Website"
+                  ]
+                }
+              },
+              "url": {
+                "type": "Link",
+                "config": {
+                  "label": "URL",
+                  "placeholder": "URL da rede social",
+                  "allowTargetBlank": true,
+                  "allowText": false,
+                  "select": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
