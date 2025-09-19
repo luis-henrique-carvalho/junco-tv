@@ -105,6 +105,8 @@ export default async function Page(props: { searchParams: SearchParams }) {
         ]
     });
 
+    console.log(featuredArticles);
+
     // Passar os artigos e metadados de paginação para os componentes
     const componentsWithArticles = {
         ...components,
