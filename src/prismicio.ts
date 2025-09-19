@@ -22,6 +22,7 @@ const routes: Route[] = [
   { type: "home_page", path: "/" },
   { type: "junco_news", path: "/junco-news" },
   { type: "news_article", path: "/junco-news/:uid" },
+  { type: "about", path: "/about" },
 ];
 
 /**

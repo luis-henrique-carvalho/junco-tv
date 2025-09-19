@@ -8,4 +8,9 @@ export const components = {
   programs_list: dynamic(() => import("./ProgramsList")),
   featured_articles: dynamic(() => import("./FeaturedArticles")),
   articles_grid: dynamic(() => import("./ArticlesGrid")),
+  hero_about: dynamic(() => import("./HeroAbout")),
+  our_story: dynamic(() => import("./OurStory")),
+  our_values: dynamic(() => import("./OurValues")),
+  our_mission: dynamic(() => import("./OurMission")),
+  contact_section: dynamic(() => import("./ContactSection")),
 };

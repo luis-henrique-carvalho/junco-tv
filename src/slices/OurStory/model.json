@@ -1,0 +1,81 @@
+{
+    "id": "our_story",
+    "type": "SharedSlice",
+    "name": "OurStory",
+    "description": "Our Story section with timeline and milestones",
+    "variations": [
+        {
+            "id": "default",
+            "name": "Default",
+            "description": "Our Story section with timeline and milestones",
+            "version": "initial",
+            "imageUrl": "",
+            "docURL": "...",
+            "primary": {
+                "title": {
+                    "type": "Text",
+                    "config": {
+                        "label": "Title",
+                        "placeholder": "Nossa História"
+                    }
+                },
+                "description": {
+                    "type": "StructuredText",
+                    "config": {
+                        "multi": "paragraph,strong,em,hyperlink",
+                        "label": "Description",
+                        "placeholder": "Uma breve introdução sobre nossa história..."
+                    }
+                },
+                "main_image": {
+                    "type": "Image",
+                    "config": {
+                        "label": "Main Image",
+                        "constraint": {},
+                        "thumbnails": []
+                    }
+                },
+                "timeline_item": {
+                    "type": "Group",
+                    "config": {
+                        "label": "Timeline Items",
+                        "repeat": true,
+                        "fields": {
+                            "year": {
+                                "type": "Text",
+                                "config": {
+                                    "label": "Year",
+                                    "placeholder": "2020"
+                                }
+                            },
+                            "title": {
+                                "type": "Text",
+                                "config": {
+                                    "label": "Title",
+                                    "placeholder": "Título do marco"
+                                }
+                            },
+                            "description": {
+                                "type": "StructuredText",
+                                "config": {
+                                    "multi": "paragraph,strong,em",
+                                    "label": "Description",
+                                    "placeholder": "Descrição do marco histórico..."
+                                }
+                            },
+                            "image": {
+                                "type": "Image",
+                                "config": {
+                                    "label": "Image",
+                                    "constraint": {},
+                                    "thumbnails": []
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "items": {}
+        }
+    ]
+}

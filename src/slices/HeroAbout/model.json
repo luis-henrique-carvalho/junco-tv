@@ -1,0 +1,42 @@
+{
+  "id": "hero_about",
+  "type": "SharedSlice",
+  "name": "HeroAbout",
+  "description": "Hero section for About page with title, subtitle, description and background image",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Hero section with title, subtitle, description and background image",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Sobre Nós"
+          }
+        },
+        "subtitle": {
+          "type": "Text",
+          "config": {
+            "label": "Subtitle",
+            "placeholder": "Conheça nossa história e valores"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Description",
+            "placeholder": "Uma breve descrição sobre a empresa...",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
