@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage } from "@prismicio/next";
 import { isFilled, asDate, asImageSrc } from "@prismicio/client";
+import * as prismic from "@prismicio/client";
 
 import { createClient } from "@/prismicio";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShareButton } from "@/components/ui/share-button";
-import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { NewsArticleDocument } from "@/../prismicio-types";
 
@@ -72,40 +74,51 @@ function NewsArticleContent({ page }: { page: NewsArticleDocument }) {
                         {/* Category and Meta Info */}
                         <div className="mb-6">
                             <div className="flex flex-wrap items-center gap-4 mb-4">
-                                {isFilled.select(page.data.category) && (
-                                    <Badge variant="outline" className="text-xs">
-                                        {page.data.category}
-                                    </Badge>
-                                )}
-
                                 {page.data.featured && (
                                     <Badge variant="default" className="text-xs">
                                         Destaque
                                     </Badge>
                                 )}
+
+                                {isFilled.select(page.data.category) && (
+                                    <Badge variant="outline" className="text-xs">
+                                        {page.data.category}
+                                    </Badge>
+                                )}
                             </div>
 
-                            <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-                                {publicationDate && (
-                                    <div className="flex items-center space-x-1">
-                                        <Calendar className="w-4 h-4" />
-                                        <span>{publicationDate.toLocaleDateString('pt-BR')}</span>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 text-sm text-muted-foreground">
+                                {isFilled.keyText(page.data.author) && (
+                                    <div className="flex items-center space-x-2 sm:col-span-1">
+                                        <Avatar className="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0">
+                                            {isFilled.image(page.data.author_photo) && (
+                                                <AvatarImage
+                                                    src={page.data.author_photo.url}
+                                                    alt={page.data.author || 'Autor'}
+                                                />
+                                            )}
+                                            <AvatarFallback className="text-xs sm:text-sm">
+                                                {page.data.author ? page.data.author.charAt(0).toUpperCase() : 'A'}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <span className="truncate">{page.data.author}</span>
                                     </div>
                                 )}
 
                                 {isFilled.number(page.data.reading_time) && (
-                                    <div className="flex items-center space-x-1">
-                                        <Clock className="w-4 h-4" />
-                                        <span>{page.data.reading_time} min de leitura</span>
+                                    <div className="flex items-center justify-end sm:justify-center space-x-1">
+                                        <Clock className="w-4 h-4 flex-shrink-0" />
+                                        <span className="truncate">{page.data.reading_time} min de leitura</span>
                                     </div>
                                 )}
 
-                                {isFilled.keyText(page.data.author) && (
-                                    <div className="flex items-center space-x-1">
-                                        <User className="w-4 h-4" />
-                                        <span>{page.data.author}</span>
+                                {publicationDate && (
+                                    <div className="flex items-center sm:justify-end space-x-1">
+                                        <Calendar className="w-4 h-4 flex-shrink-0" />
+                                        <span className="truncate">{publicationDate.toLocaleDateString('pt-BR')}</span>
                                     </div>
                                 )}
+
                             </div>
                         </div>
 
@@ -224,7 +237,7 @@ function NewsArticleContent({ page }: { page: NewsArticleDocument }) {
                                             );
                                         },
                                         image: ({ node }) => {
-                                            const imageData = node as any;
+                                            const imageData = node as prismic.ImageField;
                                             return (
                                                 <div className="my-5">
                                                     <PrismicNextImage

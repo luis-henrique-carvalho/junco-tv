@@ -330,6 +330,17 @@ interface NewsArticleDocumentData {
   author: prismic.KeyTextField;
 
   /**
+   * Foto do Autor field in *News Article*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: news_article.author_photo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  author_photo: prismic.ImageField<"small">;
+
+  /**
    * Data de Publicação field in *News Article*
    *
    * - **Field Type**: Date
