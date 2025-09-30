@@ -8,6 +8,7 @@ import type { SliceComponentProps } from "@prismicio/react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import type { NewsArticleDocument, ArticlesGridSlice } from "@/../prismicio-types";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,7 +23,7 @@ import {
     PaginationPrevious,
     PaginationEllipsis
 } from "@/components/ui/pagination";
-import { Calendar, Clock, User, Search, Filter, SortAsc, Grid, List } from "lucide-react";
+import { Calendar, Clock, Search, Filter, SortAsc, Grid, List } from "lucide-react";
 
 /**
  * Props for `ArticlesGrid`.
@@ -71,35 +72,35 @@ const ArticleCard = ({ article, index, viewMode }: { article: NewsArticleDocumen
                     }}
                 >
                     <CardContent className="p-0">
-                        <div className="flex gap-6 p-6">
+                        <div className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6">
                             {/* Image */}
-                            <div className="flex-shrink-0">
+                            <div className="flex-shrink-0 w-full sm:w-auto">
                                 <PrismicNextImage
                                     field={article.data.featured_image}
-                                    className="w-32 h-24 md:w-48 md:h-32 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                                    className="w-full h-32 sm:w-32 sm:h-24 md:w-48 md:h-32 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
                                     alt=""
                                 />
                             </div>
 
                             {/* Content */}
                             <div className="flex-1 min-w-0">
-                                <div className="flex items-start justify-between mb-3">
-                                    <Badge className={`${getCategoryColor(article.data.category || '')} border`}>
+                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 space-y-2 sm:space-y-0">
+                                    <Badge className={`${getCategoryColor(article.data.category || '')} border w-fit`}>
                                         {article.data.category || 'Sem categoria'}
                                     </Badge>
-                                    <div className="flex items-center space-x-4 text-xs text-muted-foreground">
+                                    <div className="flex items-center space-x-3 sm:space-x-4 text-xs text-muted-foreground">
                                         <div className="flex items-center space-x-1">
                                             <Calendar className="w-3 h-3" />
-                                            <span>{asDate(article.data.publication_date)?.toLocaleDateString('pt-BR')}</span>
+                                            <span className="truncate">{asDate(article.data.publication_date)?.toLocaleDateString('pt-BR')}</span>
                                         </div>
                                         <div className="flex items-center space-x-1">
                                             <Clock className="w-3 h-3" />
-                                            <span>{article.data.reading_time} min</span>
+                                            <span className="truncate">{article.data.reading_time} min</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <CardTitle className="text-lg lg:text-xl text-foreground leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                                <CardTitle className="text-base sm:text-lg lg:text-xl text-foreground leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2">
                                     <PrismicRichText field={article.data.title} />
                                 </CardTitle>
 
@@ -107,12 +108,22 @@ const ArticleCard = ({ article, index, viewMode }: { article: NewsArticleDocumen
                                     <PrismicRichText field={article.data.excerpt} />
                                 </div>
 
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                                        <User className="w-3 h-3" />
-                                        <span>{article.data.author}</span>
+                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                                    <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                                        <Avatar className="w-5 h-5 sm:w-6 sm:h-6">
+                                            {isFilled.image(article.data.author_photo) && (
+                                                <AvatarImage
+                                                    src={article.data.author_photo.url}
+                                                    alt={article.data.author || 'Autor'}
+                                                />
+                                            )}
+                                            <AvatarFallback className="text-xs">
+                                                {article.data.author ? article.data.author.charAt(0).toUpperCase() : 'A'}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <span className="truncate">{article.data.author}</span>
                                     </div>
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex w-full items-center space-x-2">
                                         <ShareButton
                                             url={`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/junco-news/${article.uid}`}
                                             title={article.data.title?.[0] && 'text' in article.data.title[0] ? article.data.title[0].text : 'Artigo'}
@@ -165,10 +176,20 @@ const ArticleCard = ({ article, index, viewMode }: { article: NewsArticleDocumen
 
                     <div className="space-y-3">
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex items-center space-x-1">
-                                    <User className="w-3 h-3" />
-                                    <span>{article.data.author}</span>
+                            <div className="flex items-center space-x-2 sm:space-x-4">
+                                <div className="flex items-center space-x-2 sm:space-x-3">
+                                    <Avatar className="w-5 h-5 sm:w-6 sm:h-6">
+                                        {isFilled.image(article.data.author_photo) && (
+                                            <AvatarImage
+                                                src={article.data.author_photo.url}
+                                                alt={article.data.author || 'Autor'}
+                                            />
+                                        )}
+                                        <AvatarFallback className="text-xs">
+                                            {article.data.author ? article.data.author.charAt(0).toUpperCase() : 'A'}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <span className="truncate max-w-[100px] sm:max-w-none">{article.data.author}</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
                                     <Calendar className="w-3 h-3" />
@@ -384,7 +405,7 @@ const ArticlesGrid: React.FC<ArticlesGridProps> = ({ slice, articles = [], pagin
                 {articles.length > 0 ? (
                     <>
                         {viewMode === 'grid' ? (
-                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-12">
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 mb-12">
                                 {articles.map((article, index) => (
                                     <ArticleCard key={article.id} article={article} index={index} viewMode={viewMode} />
                                 ))}

@@ -69,6 +69,23 @@
           "placeholder": "Nome do autor"
         }
       },
+      "author_photo": {
+        "type": "Image",
+        "config": {
+          "label": "Foto do Autor",
+          "constraint": {
+            "width": 1080,
+            "height": 1080
+          },
+          "thumbnails": [
+            {
+              "name": "small",
+              "width": 200,
+              "height": 200
+            }
+          ]
+        }
+      },
       "publication_date": {
         "type": "Date",
         "config": {

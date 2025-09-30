@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PrismicRichText } from "@prismicio/react";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
-import { asDate } from "@prismicio/client";
+import { asDate, isFilled } from "@prismicio/client";
 import type { SliceComponentProps } from "@prismicio/react";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import type { NewsArticleDocument, FeaturedArticlesSlice } from "@/../prismicio-types";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ShareButton } from "@/components/ui/share-button";
 import { Calendar, Clock, User, ArrowRight } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 /**
  * Props for `FeaturedArticles`.
@@ -36,8 +37,7 @@ const ArticleCard = ({ article, index }: { article: NewsArticleDocument; index: 
         <PrismicNextLink document={article}>
             <Card
                 className={`group bg-card border transition-colors duration-200 hover:shadow-md h-full flex flex-col overflow-hidden cursor-pointer
-        ${isFeatured ? 'lg:flex-row' : ''}
-      `}
+        ${isFeatured ? 'lg:flex-row' : ''}`}
             >
                 <div className={`relative overflow-hidden ${isFeatured ? 'lg:w-1/2' : ''}`}>
                     <PrismicNextImage
@@ -85,10 +85,20 @@ const ArticleCard = ({ article, index }: { article: NewsArticleDocument; index: 
                     {/* Meta information */}
                     <div className="space-y-3">
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex items-center space-x-1">
-                                    <User className="w-3 h-3" />
-                                    <span>{article.data.author}</span>
+                            <div className="flex items-center  space-x-4">
+                                <div className="flex items-center space-x-2 sm:space-x-3">
+                                    <Avatar className="w-5 h-5 sm:w-6 sm:h-6">
+                                        {isFilled.image(article.data.author_photo) && (
+                                            <AvatarImage
+                                                src={article.data.author_photo.url || ''}
+                                                alt={article.data.author || 'Autor'}
+                                            />
+                                        )}
+                                        <AvatarFallback className="text-xs">
+                                            {article.data.author ? article.data.author.charAt(0).toUpperCase() : 'A'}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <span className="truncate max-w-[100px] sm:max-w-none">{article.data.author}</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
                                     <Calendar className="w-3 h-3" />

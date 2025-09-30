@@ -18,6 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
     const client = createClient();
     const page = await client.getSingle("junco_news").catch(() => notFound());
 
+    console.log("metadata", page.data);
+
     return {
         title: page.data.meta_title,
         description: page.data.meta_description,
