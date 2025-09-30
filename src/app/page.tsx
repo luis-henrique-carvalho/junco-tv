@@ -17,11 +17,21 @@ export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
   const page = await client.getSingle("home_page").catch(() => notFound());
 
+  console.log("metadata", page.data);
+
+  const imageUrl = asImageSrc(page.data.meta_image);
+
   return {
     title: page.data.meta_title,
     description: page.data.meta_description,
     openGraph: {
-      images: [{ url: asImageSrc(page.data.meta_image) ?? "" }],
+      images: imageUrl ? [{
+        url: imageUrl,
+        alt: page.data.meta_title || "Junco TV",
+        width: 1200,
+        height: 630,
+        type: "image/jpeg"
+      }] : [],
     },
   };
 }
