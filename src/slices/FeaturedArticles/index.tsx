@@ -86,7 +86,7 @@ const ArticleCard = ({ article, index }: { article: NewsArticleDocument; index: 
                     <div className="space-y-3">
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                             <div className="flex items-center  space-x-4">
-                                <div className="flex items-center space-x-1">
+                                <div className="flex items-center space-x-2 sm:space-x-3">
                                     <Avatar className="w-5 h-5 sm:w-6 sm:h-6">
                                         {isFilled.image(article.data.author_photo) && (
                                             <AvatarImage
@@ -98,7 +98,7 @@ const ArticleCard = ({ article, index }: { article: NewsArticleDocument; index: 
                                             {article.data.author ? article.data.author.charAt(0).toUpperCase() : 'A'}
                                         </AvatarFallback>
                                     </Avatar>
-                                    <span className="truncate">{article.data.author}</span>
+                                    <span className="truncate max-w-[100px] sm:max-w-none">{article.data.author}</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
                                     <Calendar className="w-3 h-3" />

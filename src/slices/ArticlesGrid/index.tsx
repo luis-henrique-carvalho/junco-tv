@@ -177,7 +177,7 @@ const ArticleCard = ({ article, index, viewMode }: { article: NewsArticleDocumen
                     <div className="space-y-3">
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
                             <div className="flex items-center space-x-2 sm:space-x-4">
-                                <div className="flex items-center space-x-1 sm:space-x-2">
+                                <div className="flex items-center space-x-2 sm:space-x-3">
                                     <Avatar className="w-5 h-5 sm:w-6 sm:h-6">
                                         {isFilled.image(article.data.author_photo) && (
                                             <AvatarImage
